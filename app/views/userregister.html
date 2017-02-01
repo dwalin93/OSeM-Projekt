@@ -1,0 +1,57 @@
+<div class="row register">
+  <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2">
+    <div>
+      <div class="tab-content">
+
+        <form ng-submit="vm.onSubmit()">
+          <hr>
+         <!-- <div class="alert alert-info" role="alert">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            {{'USTEP1_DESCRIPTION' | translate}}
+          </div>-->
+
+                <!-- FIRSTNAME -->
+          <div class="form-group">
+           <label class="control-label">{{ 'FIRSTNAME' | translate}}*</label>
+           <input type="text" name="firstname" class="form-control" ng-model="vm.credentials.firstname" title="{{ 'PLEASE_SPECIFY_FIRSTNAME' | translate }}" required>
+          </div>
+                <!-- LASTNAME -->
+          <div class="form-group">
+           <label class="control-label">{{ 'LASTNAME' | translate }}*</label>
+           <input type="text" name="lastname" class="form-control" ng-model="vm.credentials.lastname" title="{{ 'PLEASE_SPECIFY_LASTNAME' | translate }}" required>
+           </div>
+
+                <!-- EMAIL -->
+          <div class="form-group ">
+           <label class="control-label">{{ 'EMAIL' | translate }}*</label>
+           <input type="email" name="email" class="form-control" ng-model="vm.credentials.email" title="{{ 'PLEASE_SPECIFY_EMAIL' | translate }}" required>
+           </div>
+                <!-- USERNAME -->
+          <div class="form-group">
+           <label class="control-label">{{ 'USERNAME' | translate }}*</label>
+           <input type="text" name="username" class="form-control" ng-model="vm.credentials.username" title="{{ 'PLEASE_SPECIFY_username' | translate }}" required>
+           </div>
+                <!-- Passwort -->
+          <div class="form-group">
+           <label class="control-label">{{ 'PASSWORD' | translate }}*</label>
+           <input type="password" name="password" class="form-control" ng-model="vm.credentials.password" title="{{ 'PLEASE_SPECIFY_password' | translate }}" required>
+            </div>
+
+          <div class="form-group">
+            <label class="control-label">{{ 'PASSWORD' | translate }}*</label>
+            <input type="password" name="password2" class="form-control" ng-model="vm.credentials.password2" title="{{ 'PLEASE_SPECIFY_password' | translate }}" required>
+          </div>
+
+
+      <div class="form-group">
+        <hr>
+        <div class="pull-right">
+          <button class="btn btn-primary" type="submit">
+             {{'REGISTRATION' | translate}}</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

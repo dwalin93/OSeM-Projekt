@@ -1,0 +1,67 @@
+{
+  "name": "open-sense-map",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "1.5",
+    "jquery": "~1.12.0",
+    "bootstrap": "~3.3",
+    "angular-resource": "1.5",
+    "angular-sanitize": "1.5",
+    "angular-route": "1.5",
+    "angular-bootstrap": "~1.2.0",
+    "underscore": "~1.8.0",
+    "angular-underscore": "~0.5",
+    "ngDialog": "~0.6",
+    "ng-flow": "~2",
+    "angular-bootstrap-checkbox": "^0.5.0",
+    "font-awesome": "~4.4.0",
+    "weather-icons": "~2.0",
+    "bootstrap-languages": "https://github.com/usrz/bootstrap-languages.git#3ac2a3d",
+    "angular-translate": "~2.11",
+    "angular-translate-loader-static-files": "~2.11",
+    "angular-ui-router": "~0.2.18",
+    "c3-angular": "~1.2.0",
+    "angular-moment": "^1.0.1",
+    "angular-dynamic-locale": "^0.1.32",
+    "ui-leaflet": "^1.0.1",
+    "Leaflet.awesome-markers": "^2.0.2",
+    "bootstrap-ui-datetime-picker": "^2.4.3"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.5",
+    "angular-scenario": "1.5"
+  },
+  "resolutions": {
+    "angular": "1.5",
+    "angular-translate": "~2.11"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/js/bootstrap.js",
+        "dist/css/bootstrap.css",
+        "less/bootstrap.less"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "./css/font-awesome.css",
+        "./fonts/*"
+      ]
+    },
+    "moment": {
+      "main": [
+        "moment.js",
+        "locale/de.js",
+        "locale/es.js",
+        "locale/pl.js",
+        "locale/pt.js",
+        "locale/it.js",
+        "locale/fr.js",
+        "locale/ms.js",
+        "locale/nl.js",
+        "locale/ru.js"
+      ]
+    }
+  }
+}

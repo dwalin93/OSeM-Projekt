@@ -1,0 +1,23 @@
+<div class="container">
+
+  <div class="row">
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="col-xs-3">
+      <img src="../images/Download.jpg"> <!-- Profilbild -->
+    </div>
+    <div class="col-xs-8"> <!-- Persönliche Daten  -->
+      <p>Vorname: {{vm.user.firstname}}</p>
+      <p>Nachname: {{vm.user.lastname}}</p>
+      <p>e-mail: {{vm.user.email}}</p>
+      <p>Username: {{vm.user.username}}</p>
+      <p>Punktzahl: ...</p>
+    </div>
+    <a href="/profile" class="btn btn-link">Profil bearbeiten</a>
+    <div class="col-xs-1"> <!-- Einstellungen/Bei Fremdprofilen: Abonnieren-Button -->
+      <img src="../images/Zahnrad.png" style="width: 70%; align: right">
+    </div>
+  </div>
+</div>

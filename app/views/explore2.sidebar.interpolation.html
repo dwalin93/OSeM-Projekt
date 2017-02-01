@@ -1,0 +1,74 @@
+<div id="sidebar" style="background-position: 0px -5px;">
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<h3>
+				{{'INTERPOLATION'|translate}}
+				<a ui-sref="explore.map"><i class="fa fa-times pull-right close" ng-click="closeSidebar()" tooltip="{{'CLOSESIDEBAR' | translate}}" tooltip-trigger tooltip-placement="bottom"></i></a>
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<hr>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-md-12">
+			<uib-alert type="info">
+				<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+				{{'INTERP_INTRO'|translate}}
+			</uib-alert>
+
+      <div uib-alert ng-repeat="alert in alerts" type="danger" close="closeAlert($index)">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        {{alert.msg}}
+      </div>
+
+      <div class="input-group xxxl">
+        <label for="inputFilterPhenomenon">{{ "CONFIG_PHENOMENON" | translate }}</label>
+        <input id="inputFilterPhenomenon" style="border-radius: 4px;" type="text" placeholder="{{'INTERP_PHENOMENOM_SEARCH'|translate}}" ng-model="selectedPhenomenon" uib-typeahead="phenomenon for phenomenon in $parent.markers | uniquePhenomenons | filter:$viewValue | limitTo:8" class="form-control">
+      </div>
+		</div>
+	</div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="col-lg-6" style="padding-left: 0px;">
+        <label for="interpolationPicker">{{'INTERP_TIMESTAMP'|translate}}</label>
+        <div class="input-group">
+          <input id="interpolationPicker" type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm" ng-model="interpolationPicker.date" is-open="interpolationPicker.open" button-bar="interpolationPicker.buttonBar" timepicker-options="interpolationPicker.timepickerOptions" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openCalendar($event, 'interpolationPicker')"><i class="fa fa-calendar"></i></button>
+          </span>
+        </div>
+      </div>
+      <div class="col-lg-6" style="padding-right: 0px;">
+        <label for="exposure">{{'STATION_PLACEMENT' | translate}}</label>
+        <div class="input-group">
+          <span class="input-group-btn btn-group">
+            <button style="border-top-left-radius: 4px; border-bottom-left-radius: 4px;" class="btn btn-default" ng-class="{'active': exposure === 'indoor'}" ng-click="selectExposure('indoor')">{{ 'STATION_PLACEMENT_INDOOR' | translate}}</button>
+            <button style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" class="btn btn-default" ng-class="{'active': exposure === 'outdoor'}" ng-click="selectExposure('outdoor')">{{ 'STATION_PLACEMENT_OUTDOOR' | translate}}</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+	<div class="row">
+    <div class="col-lg-12">
+      <button class="btn btn-info xxxl" ng-disabled="selectedPhenomenon === '' || calculating" ng-click="calculateInterpolation()">{{'INTERP_CREATE'|translate}}
+        <i class="fa fa-circle-o-notch fa-spin fa-fw" ng-show="calculating"></i>
+        <span class="sr-only">Loading...</span>
+      </button>
+    </div>
+	</div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-12">
+      <h6>{{legendTitle}}</h6>
+      <div class="info legend">
+        <div ng-repeat="legendEntry in legendEntries">
+          <i ng-style="legendEntry.style"></i>{{legendEntry.caption}}<br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
