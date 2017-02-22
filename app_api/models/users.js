@@ -22,7 +22,7 @@ var userSchema = new mongoose.Schema({
     required: true
   },
   birthday: {
-    type: String,
+    type: String ,
     required: false
   },
   info: {

@@ -91,19 +91,24 @@
                                 <span class="glyphicon glyphicon-barcode"></span> {{'Box REGISTER' | translate}}
                             </a>
                         </li>
-                        <li ui-sref-active-eq="active" class="menuitem"  >
+                        <li ui-sref-active-eq="active" class="menuitem"  id="navlogin" >
                             <a ui-sref="explore.map.login">
                                 <span class="glyphicon glyphicon-off"></span>
                                 {{'LOGIN' | translate}}</a>
                         </li>
-                      <li class="dropdown dropdown-languages" >
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{'USER' | translate}}<span class="caret"></span></a>
+                      <li class="dropdown dropdown-languages" id="profile" >
+                            <a href="#" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{'USER' | translate}}<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <!-- languages-start -->
                                 <li ui-sref-active-eq="active" class="menuitem" >
                                 <a ui-sref="account">
                                 <span class="glyphicon glyphicon-book"></span>
                                 {{'PROFIL' | translate}}</a>
+                                </li>
+                                <li ui-sref-active-eq="active" class="menuitem" >
+                                <a ui-sref="/">
+                                <span class="glyphicon glyphicon-play"></span>
+                                {{'GAME' | translate}}</a>
                                 </li>
                                 <li ui-sref-active-eq="active" class="menuitem">
                                 <a ui-sref="logout">
@@ -204,6 +209,7 @@
     <script src="scripts/controllers/sidebar.filter.js"></script>
     <script src="scripts/controllers/sidebar.interpolation.js"></script>
     <script src="scripts/controllers/sidebar.login.js"></script>
+    <script src="scripts/controllers/logout.js"></script>
     <script src="scripts/controllers/sidebar.loginsuccess.js"></script>
     <script src="scripts/controllers/sidebar.download.js"></script>
     <script src="scripts/controllers/editbox.js"></script>
