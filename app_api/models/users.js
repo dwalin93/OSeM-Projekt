@@ -21,6 +21,20 @@ var userSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  birthday: {
+    type: String,
+    required: false
+  },
+  info: {
+    type: String,
+    required: false
+  },
+  registrDate: {
+    type: Date,
+    required: true
+  },
+  image: {
+  },
   hash: String,
   salt: String
 });

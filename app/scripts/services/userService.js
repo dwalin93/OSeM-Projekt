@@ -22,29 +22,9 @@
         headers: {
           Authorization: 'Bearer ' + authentication.getToken()
 
-        }        
-})
+        }
+      })
     };
-      
-//      User.findOne({id: _id}, function(err, user){
-//    if (err){
-//      console.log("error");
-//    }
-//  if (user.username !== newUser.username) {
-//    User.findOne({username: newUser.username}, function (err, user){
-//      if (err){
-//        console.log("error");
-//      }
-//      if(user) {
-//        console.log("Username" + newUser.username + " ist schon vergeben");
-//      }
-//      else {
-//        updateUser3();
-//      }
-//    });
-//  } else {
-//    updateUser3();
-//  }
 
     function deleteUsers(user) {
       return $http.post('/api/users/delete/' + user._id, user, {
@@ -53,9 +33,17 @@
         }})
     };
 
+    function savingImage(image) {
+      return $http.put('api/users/image', image, {
+        headers: {
+          Authorization: 'Bearer ' + authentication.getToken()
+        }})
+    };
+
 	 return {
       update : update,
-      deleteUsers : deleteUsers
+      deleteUsers : deleteUsers,
+     savingImage: savingImage
     };
 
   }

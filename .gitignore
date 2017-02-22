@@ -35,3 +35,16 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+#Mongo data (on Windows)
+data/
+
+#bower
+app/bower_components
+
+#npm
+node_modules/
+npm-debug.log
+
+#IDE rubbish
+.idea/

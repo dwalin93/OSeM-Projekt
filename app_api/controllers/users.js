@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var fs = require('fs');
+var path = require('path');
+var restify = require('restify');
 
 module.exports.profileUpdate = function(req, res) {
   if (!req.payload._id) {
@@ -36,6 +39,29 @@ module.exports.profileDelete = function (req, res) {
   }
 };
 
+module.exports.profileImage = function(req, res, next){
+  const qrys = [];
+  console.log(req.body);
+  User.findById(req.payload._id).then(function (user){
+    if (typeof req.body.image !== 'undefined' && req.body.image !== '') {
+      console.log(req.body.image);
+      const data = req.body.image.toString();
+      const imageBuffer = requestUtils.decodeBase64Image(data);
+      const extension = (imageBuffer.type === 'image/jpeg') ? '.jpg' : '.png';
+      var time = new Date().getTime();
+      try {
+        fs.writeFileSync('/app/userimages/'+req.params._id + extension+'', imageBuffer.data);
+        qrys.push(box.set({ image: ''+req.params._id + extension+ time +'' }));
+      } catch (e) {
+        return next(new restify.InternalServerError(JSON.stringify(e.message)));
+      }
+    }
+  });
+  qrys.push(user.save());
+
+  res.send(200, user);
+};
+/*
 module.exports.updateUser = function (req, res) {
 
   updateUser2(req.param._id, req.body)
@@ -93,5 +119,5 @@ function updateUser2(_id, userParam){
       "token" : token
     });
   }
-}
+}*/
 
