@@ -20,6 +20,7 @@ router.put('/users/image', auth, ctrlUser.profileImage);
 // authentication
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
+router.post('/logout', ctrlAuth.logout);
 
 
 module.exports = router;

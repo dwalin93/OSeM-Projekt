@@ -69,24 +69,24 @@ module.exports.login = function(req, res) {
     }
   })(req, res);
 
-  module.exports.logout= function(req,res,info){
-    var token;
-    if (err){
-      res.status(404).json(err);
-      return;
-    }
-    if(user){
+};
 
-      token= user.generateJwt();
-      res.status(200);
-      res.json({
-        "token": token,
-        status:'Tschüss!'
-      });
-    }
-    else{
-      res.status(401).json(info);
-    }(req,res);
-  };
+module.exports.logout= function(req,res,info){
+  var token;
+  if (err){
+    res.status(404).json(err);
+    return;
+  }
+  if(user){
 
+    token= user.generateJwt();
+    res.status(200);
+    res.json({
+      "token": token,
+      status:'Tschüss!'
+    });
+  }
+  else{
+    res.status(401).json(info);
+  }(req,res);
 };

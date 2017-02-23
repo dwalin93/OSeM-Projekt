@@ -104,12 +104,15 @@ angular
     }
   })
 
-    .state('logout',{
-      url:'/',
-      controller: 'logoutCtrl',
-      templateUrl: '/index.html',
-      controllerAs:'vm'
-
+    .state('explore.map.logout',{
+      url:'logout',
+      views: {
+        'sidebar': {
+          controller: 'logoutCtrl',
+          templateUrl: 'views/explore2.sidebar.logout.html',
+          controllerAs: 'vm'
+        }
+      }
     })
 
   .state('profile', {
