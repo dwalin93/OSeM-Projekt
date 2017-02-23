@@ -38,7 +38,7 @@ var userSchema = new mongoose.Schema({
     required: false
   },
   points: {
-    type: number,
+    type: Number,
     required: false
   },
   hash: String,
