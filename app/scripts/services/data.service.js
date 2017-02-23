@@ -15,8 +15,17 @@
       });
     };
 
+    var countPoints = function(points) {
+      return $http.post('/api/game', points, {
+        headers: {
+          Authorization: 'Bearer '+ authentication.getToken()
+        }
+      });
+    };
+
     return {
-      getProfile : getProfile
+      getProfile : getProfile,
+      countPoints : countPoints
     };
   }
 

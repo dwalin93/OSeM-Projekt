@@ -13,7 +13,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 // [SH] Require Passport
 var passport = require('passport');
-console.log("moin");
 
 // [SH] Bring in the data model
 require('./app_api/models/db');
@@ -44,7 +43,6 @@ app.use(express.static(path.join(__dirname, 'app')));
 app.use(passport.initialize());
 
 // [SH] Use the API routes when path starts with /api
-console.log("irgendwas");
 app.use('/api', routesApi);
 
 // [SH] Otherwise render the index.html page for the Angular SPA
@@ -56,7 +54,6 @@ app.use(function(req, res) {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  console.log("hier vlt");
     var err = new Error('Not Found');
     err.status = 404;
     next(err);

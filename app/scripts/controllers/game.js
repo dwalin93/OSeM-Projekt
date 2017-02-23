@@ -5,8 +5,8 @@
     .module('openSenseMapApp')
     .controller('gameCtrl', gameCtrl);
 
-  gameCtrl.$inject = ['$location', '$translate', 'authentication', 'meanData', 'userService', '$scope', '$http'];
-  function gameCtrl($location, authentication, meanData, $translate, userService, $scope, $http) {
+  gameCtrl.$inject = ['$location', 'meanData', '$translate', 'authentication', 'userService', '$scope', '$http'];
+  function gameCtrl($location, meanData, authentication, $translate, userService, $scope, $http) {
 
     var firstpolyline;
     var latbox;
@@ -16,6 +16,7 @@
     var marker = null;
     var ergebnis = null;
     var popup = L.popup();
+    var counter = 0;
     var boxDistance;
     var oneHourAgo = new Date();
     oneHourAgo.setHours(oneHourAgo.getHours() - 1);
@@ -124,11 +125,11 @@
 
       //TO-DO
       L.easyButton('glyphicon-ok', function() {
-        if (ergebnis == null) {
+        if (ergebnis == null && counter<=2) {
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
           }).addTo(mymap);
-
+          counter++;
           score();
           ergebnis.bindPopup("du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
@@ -141,9 +142,14 @@
             smoothFactor: 1
           });
           firstpolyline.addTo(mymap);
+          if (counter == 3){
+            console.log("counter bei 2");
+            savePoints(punkteGesamt);
+          }
 
           mymap.fitBounds(firstpolyline.getBounds());
         } else {
+          window.alert("3 Spiele gespielt. Punkte wurden gespeichert");
           mymap.removeLayer(ergebnis);
           mymap.removeLayer(firstpolyline);
           ergebnis = L.marker([latbox, longbox], {
@@ -235,9 +241,19 @@
 
         }, function myError(response) {
           console.log(response);
-
         });
       }
+
+      var savePoints = function(points){
+        console.log("irgendwas");
+        meanData.countPoints(points)
+          .success(function () {
+            $location.path('/account');
+          })
+          .catch(function (e) {
+            console.log(e);
+          });
+      };
 
     //});
 

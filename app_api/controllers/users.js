@@ -59,6 +59,19 @@ module.exports.profileImage = function(req, res, next){
   });
   res.send(200, user);
 };
+
+module.exports.savePoints = function(req, res){
+  console.log(req.params.points);
+  User.findById(req.payload._id, function (err, user){
+    if(err){
+      res.status(401).json("unable to save points");
+    } else {
+      user.points = req.params.points;
+      user.save();
+      res.status("200").json("saved points");
+    }
+  });
+};
 /*
 module.exports.updateUser = function (req, res) {
 
