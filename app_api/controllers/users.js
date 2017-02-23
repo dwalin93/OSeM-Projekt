@@ -41,7 +41,6 @@ module.exports.profileDelete = function (req, res) {
 
 module.exports.profileImage = function(req, res, next){
   const qrys = [];
-  console.log(req.body);
   User.findById(req.payload._id).then(function (user){
     if (typeof req.body.image !== 'undefined' && req.body.image !== '') {
       console.log(req.body.image);
@@ -50,15 +49,14 @@ module.exports.profileImage = function(req, res, next){
       const extension = (imageBuffer.type === 'image/jpeg') ? '.jpg' : '.png';
       var time = new Date().getTime();
       try {
-        fs.writeFileSync('/app/userimages/'+req.params._id + extension+'', imageBuffer.data);
-        qrys.push(box.set({ image: ''+req.params._id + extension+ time +'' }));
+        fs.writeFileSync('/app/userimages/'+req.payload._id + extension+'', imageBuffer.data);
+        qrys.push(box.set({ image: ''+req.payload._id + extension+ time +'' }));
       } catch (e) {
         return next(new restify.InternalServerError(JSON.stringify(e.message)));
       }
     }
+    qrys.push(user.save());
   });
-  qrys.push(user.save());
-
   res.send(200, user);
 };
 /*

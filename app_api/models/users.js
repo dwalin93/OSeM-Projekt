@@ -22,7 +22,7 @@ var userSchema = new mongoose.Schema({
     required: true
   },
   birthday: {
-    type: String ,
+    type: String,
     required: false
   },
   info: {
@@ -34,6 +34,12 @@ var userSchema = new mongoose.Schema({
     required: true
   },
   image: {
+    type: String,
+    required: false
+  },
+  points: {
+    type: number,
+    required: false
   },
   hash: String,
   salt: String

@@ -4,8 +4,8 @@
     .module('openSenseMapApp')
     .controller('accountCtrl', accountCtrl);
 
-  accountCtrl.$inject = ['$location', 'meanData', 'userService', '$scope', '$rootScope', '$document'];
-  function accountCtrl($location, meanData, userService, $scope, $rootScope, $document) {
+  accountCtrl.$inject = ['$location', 'meanData', 'userService', '$scope', '$rootScope', '$document', '$http'];
+  function accountCtrl($location, meanData, userService, $scope, $rootScope, $document, $http) {
     var vm = this;
 
     vm.user = {};
@@ -21,6 +21,7 @@
       });
 
     var imgsrc = angular.element(document.getElementById('flowUploadImage')).attr('src');
+    console.log(imgsrc);
     var imageData = {
       image: imgsrc
     };
