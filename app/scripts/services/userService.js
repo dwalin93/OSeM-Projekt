@@ -14,10 +14,10 @@
 
 
     function update(user) {
-      console.log(user);
-              console.log("test");
+    //  console.log(user);
+//              console.log("test");
 
-     console.log(authentication.getToken());
+    // console.log(authentication.getToken());
       return $http.post('/api/users/' + user._id, user, {
         headers: {
           Authorization: 'Bearer ' + authentication.getToken()

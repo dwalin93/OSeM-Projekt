@@ -23,12 +23,16 @@
       });
 
     function saveUser() {
-      if (vm.user.password !== vm.user.password2) {
+       if(document.getElementById("password").value.length == 0 || document.getElementById("password2").value.length == 0){
+          alert("Zum ändern MUSST Du dein Passwort eintragen");
+      }
+      else  if (vm.user.password !== vm.user.password2) {
         alert("Passwörter stimmen nicht überein!");
-      } else {
+      } 
+          else {
         userService.update(vm.user)
           .then(function () {
-            $location.path('/loginsuccess');
+            $location.path('/account');
           })
           .catch(function (e) {
             console.log(e);
