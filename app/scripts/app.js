@@ -121,6 +121,12 @@ angular
     controller: 'profileCtrl',
     controllerAs: 'vm'
   })
+    .state('game', {
+      url: '/game',
+      templateUrl: 'views/game.html',
+      controller: 'gameCtrl',
+      controllerAs: 'vm'
+  })
     .state('account', {
       url: '/account',
       templateUrl: 'views/account.html',
