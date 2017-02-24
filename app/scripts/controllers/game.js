@@ -5,9 +5,20 @@
     .module('openSenseMapApp')
     .controller('gameCtrl', gameCtrl);
 
-  gameCtrl.$inject = ['$location', 'meanData', '$translate', 'authentication', 'userService', '$scope', '$http'];
-  function gameCtrl($location, meanData, authentication, $translate, userService, $scope, $http) {
+  gameCtrl.$inject = ['authentication','$location', 'meanData', '$translate', 'userService', '$scope', '$http'];
+  function gameCtrl(authentication,$location, meanData,  $translate, userService, $scope, $http) {
 
+      
+   var vm = this;
+    vm.isLoggedIn = authentication.isLoggedIn();
+      if(vm.isLoggedIn == false){
+          
+            var r = confirm("Hallo!\nDu bist nicht eingeloggt! \nDu kannst zwar Spielen, dann werden deine erreichten Punkte aber NICHT gespeichert!\nWillst Du dennoch weiter spielen?");
+            if (r !== true) {
+               location.href = "/"
+            }
+      }
+          
     var firstpolyline;
     var latbox;
     var punkte = 0;
