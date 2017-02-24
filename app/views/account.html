@@ -7,7 +7,8 @@
     <br>
     <div class="col-xs-3" flow-init="{ singleFile:true }" flow-file-added="added($file,$event)" flow-drop>
       <div class="thumbnail">
-        <img id="image" ng-hide="(!vm.user.image || vm.user.image === '')" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/placeholder.png' }}" alt="Image for {{ vm.user.firstname }}">
+<!--        <img id="image" ng-hide="(!vm.user.image || vm.user.image === '')" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/placeholder.png' }}" alt="Image for {{ vm.user.firstname }}">-->
+          <img id="image" ng-show="(!vm.user.image || vm.user.image == '')" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/Download.jpg' }}" alt="Image for {{ vm.user.firstname }}">
       </div>
     </div>
     <div class="col-xs-3">
