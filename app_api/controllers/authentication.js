@@ -23,6 +23,7 @@ module.exports.register = function(req, res) {
   user.email = req.body.email;
   user.username = req.body.username;
   user.registrDate = Date.now();
+  user.points = 0;
 
   user.setPassword(req.body.password);
 
