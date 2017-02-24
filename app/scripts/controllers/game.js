@@ -136,7 +136,7 @@
 
       //TO-DO
       L.easyButton('glyphicon-ok', function() {
-        if (ergebnis == null && counter<=2) {
+        if (ergebnis == null) {
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
           }).addTo(mymap);
@@ -153,20 +153,21 @@
             smoothFactor: 1
           });
           firstpolyline.addTo(mymap);
+          savePoints(punkte);
+          /*
           if (counter == 3){
             console.log("counter bei 2");
             savePoints(punkteGesamt);
           }
-
+*/
           mymap.fitBounds(firstpolyline.getBounds());
         } else {
-          window.alert("3 Spiele gespielt. Punkte wurden gespeichert");
           mymap.removeLayer(ergebnis);
           mymap.removeLayer(firstpolyline);
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
           }).addTo(mymap);
-          ergebnis.bindPopup("du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
+          ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
           console.log(pointA, pointB);
@@ -255,11 +256,12 @@
         });
       }
 
-      var savePoints = function(points){
+      function savePoints(points){
         console.log("irgendwas");
         meanData.countPoints(points)
           .success(function () {
-            $location.path('/account');
+            console.log("gespeichert");
+            //$location.path('/account');
           })
           .catch(function (e) {
             console.log(e);

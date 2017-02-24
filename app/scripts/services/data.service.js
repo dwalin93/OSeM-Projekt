@@ -15,12 +15,12 @@
       });
     };
 
-    var countPoints = function(points) {
-      return $http.post('/api/game', points, {
+    countPoints = function(points) {
+      return $http.get('/api/game/'+points, {
         headers: {
           Authorization: 'Bearer '+ authentication.getToken()
-        }
-      });
+        }}
+       );
     };
 
     return {
