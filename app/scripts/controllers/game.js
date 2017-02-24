@@ -13,7 +13,7 @@
     vm.isLoggedIn = authentication.isLoggedIn();
       if(vm.isLoggedIn == false){
           
-            var r = confirm("Hallo!\nDu bist nicht eingeloggt! \nDu kannst zwar Spielen, dann werden deine erreichten Punkte aber NICHT gespeichert!\nWillst Du dennoch weiter spielen?");
+            var r = confirm("Hallo!\nDu bist nicht eingeloggt! \nDu kannst zwar spielen, deine erreichten Punkte werden aber NICHT gespeichert!\nWillst Du dennoch spielen?");
             if (r !== true) {
                location.href = "/"
             }
@@ -142,7 +142,7 @@
           }).addTo(mymap);
           counter++;
           score();
-          ergebnis.bindPopup("du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
+          ergebnis.bindPopup("Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
           console.log(pointA, pointB);
