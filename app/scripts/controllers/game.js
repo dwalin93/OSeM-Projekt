@@ -59,10 +59,6 @@
 
     $scope.map = mymap;
 
-//gibt uns alle Boxen aus, ruft die randomize funktion auf um eine Random Box rauszugeben
-    //var app = angular.module('myApp', []);
-    //app.controller('myCtrl', function($scope, $http) {
-
       $http({
         method: "GET",
         url: "https://api.opensensemap.org/boxes?"
@@ -105,8 +101,6 @@
       };
 
 
-
-
       function onMapClick(e) {
         if (marker == null) {
           marker = new L.marker(e.latlng, {
@@ -142,7 +136,7 @@
           }).addTo(mymap);
           counter++;
           score();
-          ergebnis.bindPopup("Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
+          ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
           console.log(pointA, pointB);
@@ -154,12 +148,6 @@
           });
           firstpolyline.addTo(mymap);
           savePoints(punkte);
-          /*
-          if (counter == 3){
-            console.log("counter bei 2");
-            savePoints(punkteGesamt);
-          }
-*/
           mymap.fitBounds(firstpolyline.getBounds());
         } else {
           mymap.removeLayer(ergebnis);
@@ -265,7 +253,6 @@
       }
 
       function savePoints(points){
-        console.log("irgendwas");
         meanData.countPoints(points)
           .success(function () {
             console.log("gespeichert");
@@ -275,8 +262,6 @@
             console.log(e);
           });
       };
-
-    //});
 
   };
 
