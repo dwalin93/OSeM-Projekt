@@ -8,17 +8,17 @@
   gameCtrl.$inject = ['authentication','$location', 'meanData', '$translate', 'userService', '$scope', '$http'];
   function gameCtrl(authentication,$location, meanData,  $translate, userService, $scope, $http) {
 
-      
+
    var vm = this;
     vm.isLoggedIn = authentication.isLoggedIn();
       if(vm.isLoggedIn == false){
-          
+
             var r = confirm("Hallo!\nDu bist nicht eingeloggt! \nDu kannst zwar spielen, deine erreichten Punkte werden aber NICHT gespeichert!\nWillst Du dennoch spielen?");
             if (r !== true) {
                location.href = "/"
             }
       }
-          
+
     var firstpolyline;
     var latbox;
     var punkte = 0;
@@ -240,7 +240,15 @@
               sensor.title = response.data.sensors[i].title;
               sensor.value = response.data.sensors[i].lastMeasurement.value;
               sensor.unit = response.data.sensors[i].unit;
-              sensor.lastMeasurement = response.data.sensors[i].lastMeasurement.createdAt;
+              var x = response.data.sensors[i].lastMeasurement.createdAt;
+              var measurementDate = new Date(x);
+              var day = measurementDate.getDate();
+              var month = measurementDate.getMonth()+1;
+              var year = measurementDate.getUTCFullYear();
+              var hours = measurementDate.getUTCHours();
+              var minutes = measurementDate.getUTCMinutes();
+              var fullDate = day +'.'+ month +'.'+ year + ' um: ' + hours + ':' + minutes;
+              sensor.lastMeasurement = fullDate;
               sensors.push(sensor);
             }
             $scope.box = sensors;

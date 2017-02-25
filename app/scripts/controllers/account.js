@@ -15,10 +15,23 @@
     meanData.getProfile()
       .success(function(data) {
         vm.user = data;
+        vm.user.registrDate = renderDate(vm.user.registrDate);
+        if (vm.user.birthday != ""){
+          vm.user.birthday = renderDate(vm.user.birthday);
+        }
       })
       .error(function (e) {
         console.log(e);
       });
+
+    function renderDate(date){
+      var rightDate = new Date(date);
+      var day = rightDate.getDate();
+      var month = rightDate.getMonth()+1;
+      var year = rightDate.getUTCFullYear();
+      var correctDate = day +'.'+ month +'.'+ year;
+      return correctDate;
+    }
 
     var imgsrc = angular.element(document.getElementById('flowUploadImage')).attr('src');
     console.log(imgsrc);
