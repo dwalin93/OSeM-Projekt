@@ -127,6 +127,12 @@ angular
       controller: 'gameCtrl',
       controllerAs: 'vm'
   })
+    .state('leaderboard', {
+      url: '/leaderboard',
+      templateUrl: 'views/leaderboard.html',
+      controller: 'leaderboardCtrl',
+      controllerAs: 'vm'
+    })
     .state('account', {
       url: '/account',
       templateUrl: 'views/account.html',

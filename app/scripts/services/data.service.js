@@ -15,6 +15,10 @@
       });
     };
 
+    var getAllProfiles = function () {
+      return $http.get('/api/allProfiles');
+    };
+
     countPoints = function(points) {
       return $http.get('/api/game/'+points, {
         headers: {
@@ -25,7 +29,8 @@
 
     return {
       getProfile : getProfile,
-      countPoints : countPoints
+      countPoints : countPoints,
+      getAllProfiles : getAllProfiles
     };
   }
 

@@ -81,6 +81,21 @@ module.exports.savePoints = function(req, res){
     });
   }
 };
+
+module.exports.allProfiles = function(req, res){
+
+  User.find({}, {username: 1, points: 1, _id: 0}, {$orderby: {points: 1}}, function(err, users){
+    if (err){
+      res.status(401).json({
+        "message" : "unable to find the users"
+      });
+    } else {
+      res.status(200);
+      res.send(users);
+    };
+  });
+};
+//{}, {username: 1, points: 1, _id: 0}
 /*
 module.exports.updateUser = function (req, res) {
 

@@ -17,6 +17,7 @@ router.post('/users/:_id', auth, ctrlUser.profileUpdate);
 router.post('/users/delete/:_id', auth, ctrlUser.profileDelete);
 //router.put('/users/image', auth, ctrlUser.profileImage);
 router.get('/game/:points', auth, ctrlUser.savePoints);
+router.get('/allProfiles', ctrlUser.allProfiles);
 
 // authentication
 router.post('/register', ctrlAuth.register);
