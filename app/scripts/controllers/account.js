@@ -43,7 +43,7 @@
     function saveImage() {
       userService.savingImage(imageData)
         .then(function () {
-          $location.path('/profile');
+          $location.path('/account');
         })
         .catch(function (e) {
           console.log(e);
