@@ -37,8 +37,8 @@
       <p>e-mail: {{vm.user.email}}</p>
       <p>Username: {{vm.user.username}}</p>
       <p>Punktzahl: {{vm.user.points}}</p>
-      <p ng-hide="(vm.user.birthday == '')">Geburtstag: {{vm.user.birthday}}</p>
-      <p ng-hide="(vm.user.info == '')">Information: {{vm.user.info}}</p>
+      <p ng-hide="(vm.user.birthday == 'NaN.NaN.NaN')">Geburtstag: {{vm.user.birthday}}</p>
+      <p ng-hide="(vm.user.info == 'NAN')">Information: {{vm.user.info}}</p>
       <p>registriert seit: {{vm.user.registrDate}}</p>
 
     </div>
