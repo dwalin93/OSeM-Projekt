@@ -10,8 +10,8 @@
     console.log('tata');
    
  $window.localStorage.clear();
-      document.getElementById('navlogin').style.display='block'
-            document.getElementById('profile').style.display='none'
+        document.getElementById('navlogin').style.display='block'
+        document.getElementById('profile').style.display='none'
       
     };
 

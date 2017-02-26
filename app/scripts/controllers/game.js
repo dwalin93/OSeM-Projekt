@@ -18,8 +18,13 @@
                location.href = "/"
             }
       }
+      
+   // document.getElementById('profile').style.display='block'
+   // document.getElementById('navlogin').style.display='none'
+
 
     var firstpolyline;
+    var popupergebnis;
     var latbox;
     var punkte = 0;
     var punkteGesamt = 0;
@@ -134,6 +139,10 @@
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
           }).addTo(mymap);
+            
+            
+            
+            
           counter++;
           score();
           ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
@@ -149,12 +158,21 @@
           firstpolyline.addTo(mymap);
           savePoints(punkte);
           mymap.fitBounds(firstpolyline.getBounds());
+            
+        var poplatlon = [(pointA[0]+pointB[0])/2,(pointA[1]+pointB[1])/2]
+            console.log(poplatlon)
+        popupergebnis = L.popup()
+            .setLatLng(poplatlon)
+            .setContent("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt)
+            .addTo(mymap);  
+            
+            
         } else {
           mymap.removeLayer(ergebnis);
           mymap.removeLayer(firstpolyline);
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
-          }).addTo(mymap);
+          }).addTo(mymap);       
           ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
@@ -178,6 +196,7 @@
 
         mymap.setView([51.4, 9], 2);
         mymap.removeLayer(marker);
+        mymap.removeLayer(popupergebnis);
         mymap.removeLayer(ergebnis);
         mymap.removeLayer(firstpolyline);
         ergebnis= null;
@@ -192,6 +211,7 @@
         console.log('RandomBoxId: ' + gameBoxId);
         gameBox(gameBoxId, http);
         mymap.removeLayer(marker);
+        mymap.removeLayer(popupergebnis);
         mymap.removeLayer(ergebnis);
         mymap.removeLayer(firstpolyline);
       };

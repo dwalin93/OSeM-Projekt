@@ -24,7 +24,8 @@
 
     function saveUser() {
        if(document.getElementById("password").value.length == 0 || document.getElementById("password2").value.length == 0){
-          alert("Zum ändern MUSST Du dein Passwort eintragen");
+           jAlert('Zum ändern MUSST Du dein Passwort eintragen');
+          //alert("Zum ändern MUSST Du dein Passwort eintragen");
       }
       else  if (vm.user.password !== vm.user.password2) {
         alert("Passwörter stimmen nicht überein!");
