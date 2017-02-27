@@ -1,16 +1,18 @@
 <div class="container" style="padding-top: 75px">
   <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2">
     <h1>Leaderboard for the Sensebox Game</h1>
-    <table style="border: 1px solid black;">
+    <table class="table table-striped">
       <thead>
-      <tr style="border: 1px solid black;">
-        <th style="border: 1px solid black;">Username</th>
+      <tr>
+        <th>Rang</th>
+        <th>Username</th>
         <th>Punkte</th>
       </tr>
       </thead>
       <tfoot>
-      <tr ng-repeat="user in vm.users" style="border: 1px solid black;" ng-style="vm.user.username === user.username ? {'background-color': 'lightgreen'} : {}">
-        <td style="border: 1px solid black;">{{user.username}}</td>
+      <tr ng-repeat="user in vm.users | orderBy : '-points'" ng-style="vm.user.username === user.username ? {'background-color': 'lightgreen'} : {}">
+        <td>{{$index +1}}</td>
+        <td>{{user.username}}</td>
         <td>{{user.points}}</td>
       </tr>
       </tfoot>
