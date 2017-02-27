@@ -24,6 +24,8 @@
 
 
     var firstpolyline;
+      var ok;
+      var repeat;
     var popupergebnis;
     var latbox;
     var punkte = 0;
@@ -88,26 +90,28 @@
         console.log("l33337 Test  " + $scope.distance);
         // punkte einteilung
         if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 50) {
-          punkte = punkte + +100;
-          punkteGesamt = + punkteGesamt + +100;
+          punkte = Number(100);
+          punkteGesamt =  punkteGesamt + 100;
         }
         if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 150 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 50) {
-          punkte += Number(50);
-          punkteGesamt = + punkteGesamt + +50;
+          punkte = Number(50);
+          punkteGesamt =  punkteGesamt  + 50;
         }
         if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 250 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 100) {
-          punkte += Number(10);
-          punkteGesamt = + punkteGesamt + +10;
+          punkte = Number(10);
+          punkteGesamt =  punkteGesamt  + 10;
         }
         if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 250) {
-          punkte = +1;
-          punkteGesamt = +punkteGesamt + +1;
+          punkte = Number(1);
+          punkteGesamt = punkteGesamt  + 1;
         }
       };
 
 
       function onMapClick(e) {
         if (marker == null) {
+
+         ok.addTo(mymap);
           marker = new L.marker(e.latlng, {
             draggable: false
           });
@@ -115,7 +119,7 @@
           position = marker.getLatLng();
           pointB = [position.lat, position.lng];
         } else {
-
+            ok.addTo(mymap);
           mymap.removeLayer(marker);
           marker = null;
           marker = new L.marker(e.latlng, {
@@ -134,18 +138,18 @@
 
 
       //TO-DO
-      L.easyButton('glyphicon-ok', function() {
+     ok = new L.easyButton('glyphicon-ok', function() {
         if (ergebnis == null) {
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
           }).addTo(mymap);
             
-            
-            
+          ok.remove();
+          repeat.addTo(mymap);
             
           counter++;
           score();
-          ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
+          //ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
           console.log(pointA, pointB);
@@ -173,7 +177,7 @@
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
           }).addTo(mymap);       
-          ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
+          //ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
           console.log(pointA, pointB);
@@ -189,20 +193,24 @@
           mymap.fitBounds(firstpolyline.getBounds());
         }
 
-      }).addTo(mymap);
+      });
 
       //TO-DO neue Daten geladen Nachricht  + addieren der Punkte + speichern der Punkte
-      L.easyButton('fa-repeat', function() {
-
+    repeat = new L.easyButton('fa-repeat', function() {
         mymap.setView([51.4, 9], 2);
         mymap.removeLayer(marker);
         mymap.removeLayer(popupergebnis);
         mymap.removeLayer(ergebnis);
         mymap.removeLayer(firstpolyline);
+        repeat.remove();
+        ok.remove();
+        
         ergebnis= null;
         randomize(boxId, $http)
 
-      }).addTo(mymap);
+      });
+      
+      
       mymap.on('click', onMapClick);
       //sucht eine Randombox aus und übergibt das dann der funktion gameBox
       //übergebene boxId
@@ -213,6 +221,7 @@
         mymap.removeLayer(marker);
         mymap.removeLayer(popupergebnis);
         mymap.removeLayer(ergebnis);
+        mymap.removeLayer(repeat);
         mymap.removeLayer(firstpolyline);
       };
 
@@ -284,5 +293,7 @@
       };
 
   };
-
+    
+    
+    
 })();
