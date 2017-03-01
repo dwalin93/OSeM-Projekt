@@ -13,7 +13,7 @@
 
     var deleteToken = function (token) {
       $window.localStorage.removeItem(token);
-    }
+    };
 
     var getToken = function () {
       return $window.localStorage['mean-token'];

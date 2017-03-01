@@ -10,8 +10,6 @@
 
     vm.user = {};
 
-    vm.saveImage = saveImage;
-
     meanData.getProfile()
       .success(function(data) {
         vm.user = data;
@@ -31,23 +29,6 @@
       var year = rightDate.getUTCFullYear();
       var correctDate = day +'.'+ month +'.'+ year;
       return correctDate;
-    }
-
-    var imgsrc = angular.element(document.getElementById('flowUploadImage')).attr('src');
-    console.log(imgsrc);
-    var imageData = {
-      image: imgsrc
-    };
-    console.log(imageData);
-
-    function saveImage() {
-      userService.savingImage(imageData)
-        .then(function () {
-          $location.path('/account');
-        })
-        .catch(function (e) {
-          console.log(e);
-        });
     }
 
     $scope.flowFileAdded = function (file) {

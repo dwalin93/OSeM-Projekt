@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var fs = require('fs');
 var path = require('path');
-var restify = require('restify');
+//var restify = require('restify');
 
 module.exports.profileUpdate = function(req, res) {
   if (!req.payload._id) {
@@ -38,28 +38,30 @@ module.exports.profileDelete = function (req, res) {
       });
   }
 };
-/*
+
 module.exports.profileImage = function(req, res, next){
-  const qrys = [];
+
   User.findById(req.payload._id).then(function (user){
     if (typeof req.body.image !== 'undefined' && req.body.image !== '') {
-      console.log(req.body.image);
       const data = req.body.image.toString();
-      const imageBuffer = requestUtils.decodeBase64Image(data);
+      const imageBuffer = decodeBase64Image(data);
       const extension = (imageBuffer.type === 'image/jpeg') ? '.jpg' : '.png';
       var time = new Date().getTime();
       try {
-        fs.writeFileSync('/app/userimages/'+req.payload._id + extension+'', imageBuffer.data);
-        qrys.push(box.set({ image: ''+req.payload._id + extension+ time +'' }));
+        fs.writeFileSync('app/userimages/'+req.payload._id + extension+'', imageBuffer.data);
+        user.image = (req.payload._id + extension);
       } catch (e) {
-        return next(new restify.InternalServerError(JSON.stringify(e.message)));
+        return "error";//next(new restify.InternalServerError(JSON.stringify(e.message)));
       }
     }
-    qrys.push(user.save());
+    user.save();
+
   });
-  res.send(200, user);
+  res.status(200).json({
+    "message" : "image saved"
+  });
 };
-*/
+
 module.exports.savePoints = function(req, res){
   if (!req.payload._id) {
     res.status(401).json({
@@ -95,64 +97,17 @@ module.exports.allProfiles = function(req, res){
     };
   });
 };
-//{}, {username: 1, points: 1, _id: 0}
-/*
-module.exports.updateUser = function (req, res) {
 
-  updateUser2(req.param._id, req.body)
-    .then(function(){
-      res.sendStatus(200);
-    })
-    .catch(function(err){
-      res.status(400).send(err);
-    });
+const decodeBase64Image = function (dataString) {
+  const matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+    response = {};
+
+  if (matches.length !== 3) {
+    return new Error('Invalid input string');
+  }
+
+  response.type = matches[1];
+  response.data = new Buffer(matches[2], 'base64');
+
+  return response;
 };
-function updateUser2(_id, userParam){
-  var newUser = userParam;
-  updateUser3();
-
-  User.findOne({id: _id}, function(err, user){
-    if (err){
-      console.log("error");
-    }
-  if (user.username !== newUser.username) {
-    User.findOne({username: newUser.username}, function (err, user){
-      if (err){
-        console.log("error");
-      }
-      if(user) {
-        console.log("Username" + newUser.username + " ist schon vergeben");
-      }
-      else {
-        updateUser3();
-      }
-    });
-  } else {
-    updateUser3();
-  }
-  });
-
-  function updateUser3(){
-    console.log("guten tag");
-    var set = {
-      firstname: newUser.firstname,
-      lastname: newUser.lastname,
-      email: newUser.email,
-      username: newUser.username
-    };
-
-    if(newUser.password){
-      set.setPassword(newUser.password);
-    }
-
-    User.findOneAndUpdate({id: _id}, {$set: set});
-
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
-  }
-}*/
-

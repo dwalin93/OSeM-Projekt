@@ -1,4 +1,4 @@
-var passport = require('passport');
+//var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
@@ -46,30 +46,32 @@ module.exports.login = function(req, res) {
   //   });
   //   return;
   // }
+  var token;
 
-  passport.authenticate('local', function(err, user, info){
-    var token;
-
-    // If Passport throws/catches an error
-    if (err) {
-      console.log("aber hier");
-      res.status(404).json(err);
-      return;
+  User.findOne({ username: req.body.username }, function (err, user) {
+    if(err) {
+      res.status(401).json({
+        "message": "can't login"
+      })
     }
-
-    // If a user is found
-    if(user){
-      token = user.generateJwt();
-      res.status(200);
-      res.json({
-        "token" : token
-      });
-    } else {
-      // If user is not found
-      res.status(401).json(info);
+    if(!user.validPassword(req.body.password)){
+      res.status(401).json({
+        "message" : "wrong password"
+      })
+    } else{
+      if(user){
+        token = user.generateJwt();
+        res.status(200);
+        res.json({
+          "token" : token
+        });
+      } else {
+        // If user is not found
+        res.status(401).json(info);
+      }
     }
-  })(req, res);
-
+  });
+  (req,res);
 };
 
 module.exports.logout= function(req,res,info){

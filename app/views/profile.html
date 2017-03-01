@@ -41,6 +41,19 @@
       <button class="btn btn-danger" ng-click="vm.deleteUser()">Delete</button>
     </div>
   </form>
+      <h3>{{'EDIT_IMAGE'|translate}}</h3>
+      {{'EDIT_IMAGEINFO'|translate}}
+      <div flow-init="{singleFile:true}" flow-file-added="flowFileAdded($file,$event)" flow-drop>
+        <div class="thumbnail">
+          <img ng-src="/userimages/{{vm.user.image}}" ng-hide="$flow.files.length || !vm.user.image" alt="Image for {{ vm.user.firstname || 'Filter' }}">
+          <img id="flowUploadImage" flow-img="$flow.files[0]">
+        </div>
+        <div>
+          <span class="btn btn-primary" flow-btn>{{ 'SETTINGS_SELECTIMAGE' | translate }}</span>
+          <p>{{ 'SETTINGS_IMAGE_RESTRICTIONS' | translate }}</p>
+          <button type="submit" class="btn btn-success" ng-click="vm.saveImage()">Save</button>
+        </div>
+      </div>
 </div>
     </div>
 </div>

@@ -57,7 +57,7 @@ userSchema.methods.validPassword = function(password) {
 
 userSchema.methods.generateJwt = function() {
   var expiry = new Date();
-  expiry.setDate(expiry.getDate() + 7);
+  expiry.setDate(expiry.getUTCMinutes() + 500);
 
   return jwt.sign({
     _id: this._id,
@@ -65,7 +65,7 @@ userSchema.methods.generateJwt = function() {
     lastname: this.lastname,
     email: this.email,
     username: this.username,
-    exp: parseInt(expiry.getTime() / 1000),
+    exp: parseInt(expiry.getTime()),
   }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 

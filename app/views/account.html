@@ -6,42 +6,63 @@
     <br>
     <br>
     <div class="col-xs-3" flow-init="{ singleFile:true }" flow-file-added="added($file,$event)" flow-drop>
+      <h4 style="font-weight: bold;">Profilbild:</h4>
       <div class="thumbnail">
-<!--        <img id="image" ng-hide="(!vm.user.image || vm.user.image === '')" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/placeholder.png' }}" alt="Image for {{ vm.user.firstname }}">-->
-          <img id="image" ng-show="(!vm.user.image || vm.user.image == '')" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/Download.jpg' }}" alt="Image for {{ vm.user.firstname }}">
+          <img id="image" ng-hide="(!vm.user.image || vm.user.image == '')" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/Download.jpg' }}" alt="Image for {{ vm.user.firstname }}">
       </div>
     </div>
-    <div class="col-xs-3">
-      <h3>{{'EDIT_IMAGE'|translate}}</h3>
-      {{'EDIT_IMAGEINFO'|translate}}
-      <div flow-init="{singleFile:true}" flow-file-added="flowFileAdded($file,$event)" flow-drop>
-        <div class="thumbnail">
-          <img ng-src="/userimages/{{vm.user.image}}" ng-hide="$flow.files.length || !vm.user.image" alt="Image for {{ vm.user.firstname || 'Filter' }}">
-          <img id="flowUploadImage" flow-img="$flow.files[0]">
-        </div>
-        <div>
-          <span class="btn btn-primary" flow-btn>{{ 'SETTINGS_SELECTIMAGE' | translate }}</span>
-          <p>{{ 'SETTINGS_IMAGE_RESTRICTIONS' | translate }}</p>
-          <button type="submit" class="btn btn-success" ng-click="vm.saveImage()">Save</button>
-        </div>
+
+    <div class="col-xs-7" style="padding-left:5em;">
+      <br>
+      <h4 style="font-weight: bold;">Profilinfos:</h4>
+      <div class=" col-md-9 col-lg-9 ">
+        <table class="table table-user-information">
+          <tbody>
+          <tr>
+            <td>Vorname:</td>
+            <td>{{vm.user.firstname}}</td>
+          </tr>
+          <tr>
+            <td>Nachname:</td>
+            <td>{{vm.user.lastname}}</td>
+          </tr>
+          <tr>
+            <td>e-mail:</td>
+            <td>{{vm.user.email}}</td>
+          </tr>
+          <tr>
+            <td>Username:</td>
+            <td>{{vm.user.username}}</td>
+          </tr>
+          <tr>
+            <td>Punktzahl:</td>
+            <td>{{vm.user.points}}</td>
+          </tr>
+          <tr>
+            <td>registriert seit:</td>
+            <td>{{vm.user.registrDate}}</td>
+          </tr>
+          <tr ng-hide="(vm.user.birthday == 'NaN.NaN.NaN' ||vm.user.birthday == '1.1.1970')">
+            <td>Geburtstag:</td>
+            <td>{{vm.user.birthday}}</td>
+          </tr>
+          <tr ng-hide="(vm.user.info == null || vm.user.info == '' )">
+            <td>Information:</td>
+            <td>{{vm.user.info}}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="col-xs-8"  > <!-- Persönliche Daten  -->
 
-         <a href="/profile">
-     <span class="glyphicon glyphicon glyphicon-cog"> </span> {{'Profil bearbeiten' | translate}}
-    </a>
-
-      <p>Vorname: {{vm.user.firstname}}</p>
-      <p>Nachname: {{vm.user.lastname}}</p>
-      <p>e-mail: {{vm.user.email}}</p>
-      <p>Username: {{vm.user.username}}</p>
-      <p>Punktzahl: {{vm.user.points}}</p>
-      <p ng-hide="(vm.user.birthday == 'NaN.NaN.NaN' ||vm.user.birthday == '1.1.1970')">Geburtstag: {{vm.user.birthday}}</p>
-      <p ng-hide="(vm.user.info == null || vm.user.info == '' )">Information: {{vm.user.info}}</p>
-      <p>registriert seit: {{vm.user.registrDate}}</p>
-
+    <div class="col-xs-1" style="padding-right: 10em"> <!-- Persönliche Daten  -->
+      <br>
+      <br>
+      <span class="glyphicon glyphicon glyphicon-cog" style="padding-right: 5px"> </span><a class="btn btn-primary" role="button" href="/profile">{{'Profil bearbeiten' | translate}}
+        <!--<span class="glyphicon glyphicon glyphicon-cog"> </span> {{'Profil bearbeiten' | translate}}-->
+      </a>
     </div>
+
       <!--
     <a href="/profile" class="btn btn-link">Profil bearbeiten</a>
     <div class="col-xs-1">
