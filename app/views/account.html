@@ -8,7 +8,7 @@
     <div class="col-xs-3" flow-init="{ singleFile:true }" flow-file-added="added($file,$event)" flow-drop>
       <h4 style="font-weight: bold;">Profilbild:</h4>
       <div class="thumbnail">
-          <img id="image" ng-hide="(!vm.user.image || vm.user.image == '')" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/Download.jpg' }}" alt="Image for {{ vm.user.firstname }}">
+          <img id="image" ng-hide="(vm.user.image === null)" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/Download.jpg' }}" alt="Image for {{ vm.user.firstname }}">
       </div>
     </div>
 
@@ -58,18 +58,11 @@
     <div class="col-xs-1" style="padding-right: 10em"> <!-- Persönliche Daten  -->
       <br>
       <br>
-      <span class="glyphicon glyphicon glyphicon-cog" style="padding-right: 5px"> </span><a class="btn btn-primary" role="button" href="/profile">{{'Profil bearbeiten' | translate}}
-        <!--<span class="glyphicon glyphicon glyphicon-cog"> </span> {{'Profil bearbeiten' | translate}}-->
+      <a class="btn btn-primary" role="button" href="/profile">{{'Profil bearbeiten' | translate}}
       </a>
     </div>
 
-      <!--
-    <a href="/profile" class="btn btn-link">Profil bearbeiten</a>
-    <div class="col-xs-1">
-    // Einstellungen/Bei Fremdprofilen: Abonnieren-Button
-    <img src="../images/Zahnrad.png" style="width: 70%; align: right">
-    </div>
-    -->
+      
 
 </div>
 </div>

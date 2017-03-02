@@ -12,24 +12,16 @@
 
     meanData.getProfile()
       .success(function(data) {
+        var a ='true'
         vm.user = data;
-        vm.user.registrDate = renderDate(vm.user.registrDate);
+        vm.user.registrDate = meanData.renderDate(vm.user.registrDate)
         if (vm.user.birthday != ""){
-          vm.user.birthday = renderDate(vm.user.birthday);
+          vm.user.birthday = meanData.renderDate(vm.user.birthday)
         }
       })
       .error(function (e) {
         console.log(e);
       });
-
-    function renderDate(date){
-      var rightDate = new Date(date);
-      var day = rightDate.getDate();
-      var month = rightDate.getMonth()+1;
-      var year = rightDate.getUTCFullYear();
-      var correctDate = day +'.'+ month +'.'+ year;
-      return correctDate;
-    }
 
     $scope.flowFileAdded = function (file) {
       if ((file.getExtension().toLowerCase() === 'jpg' || file.getExtension().toLowerCase() === 'png' || file.getExtension().toLowerCase() === 'jpeg') && file.size < 512000) {

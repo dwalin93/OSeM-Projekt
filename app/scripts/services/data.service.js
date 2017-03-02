@@ -14,6 +14,21 @@
         }
       });
     };
+      
+      function renderDate(date){
+      var rightDate = new Date(date);
+      var day = rightDate.getDate();
+      var month = rightDate.getMonth()+1;
+      var year = rightDate.getUTCFullYear();
+          if (day < 10){
+              day = "0" + day
+          }
+          if (month < 10){
+              month = "0" + month
+          }
+            var correctDate = day +'.'+ month +'.'+ year;
+      return correctDate;
+        }
 
     var getAllProfiles = function () {
       return $http.get('/api/allProfiles');
@@ -30,7 +45,8 @@
     return {
       getProfile : getProfile,
       countPoints : countPoints,
-      getAllProfiles : getAllProfiles
+      getAllProfiles : getAllProfiles,
+        renderDate: renderDate
     };
   }
 
