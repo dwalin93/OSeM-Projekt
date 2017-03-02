@@ -12,7 +12,6 @@
 
     meanData.getProfile()
       .success(function(data) {
-        var a ='true'
         vm.user = data;
         vm.user.registrDate = meanData.renderDate(vm.user.registrDate)
         if (vm.user.birthday != ""){
