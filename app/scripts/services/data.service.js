@@ -46,7 +46,7 @@
       getProfile : getProfile,
       countPoints : countPoints,
       getAllProfiles : getAllProfiles,
-        renderDate: renderDate
+      renderDate: renderDate
     };
   }
 

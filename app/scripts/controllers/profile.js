@@ -51,6 +51,13 @@
         }
 
     function deleteUser() {
+        
+        var r = confirm("Hallo!\nWollen sie Ihren Account wirklich löschen?");
+            if (r !== true) {
+               location.href = "/"
+            }
+        
+        
       userService.deleteUsers(vm.user)
         .then(function(){
           $location.path('/login');
