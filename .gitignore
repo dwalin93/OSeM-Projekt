@@ -48,3 +48,6 @@ npm-debug.log
 
 #IDE rubbish
 .idea/
+
+#profilbilder
+app/userimages
