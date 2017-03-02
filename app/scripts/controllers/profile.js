@@ -18,8 +18,10 @@
     meanData.getProfile()
       .success(function (data) {
         vm.user = data;
-         if (vm.user.birthday != ""){
-          vm.user.birthday = meanData.renderDate(vm.user.birthday)
+        if (vm.user.birthday == null){
+            vm.user.birthday="";}
+         else if (vm.user.birthday != ""){
+          vm.user.birthday = meanData.renderDate(vm.user.birthday);
         }
       })
       .error(function (e) {
