@@ -29,13 +29,52 @@
 
                  </div>
              </div>
-      </h2>
+          
+          
+
+
+             <div id="myModal2" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+
+
+                     <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                         <h3>Leaderboard for the Sensebox Game</h3>
+                         </div>
+                         <div class="modal-body">
+                             <table class="table table-striped">
+                                 <thead>
+                                     <tr>
+                                         <th>Rang</th>
+                                         <th>Username</th>
+                                         <th>Punkte</th>
+                                     </tr>
+                                 </thead>
+                                 <tfoot>
+                                     <tr ng-repeat="user in vm.users | orderBy : '-points' | limitTo: 10" ng-style="vm.user.username === user.username ? {'background-color': 'lightgreen'} : {}">
+                                         <td>{{$index +1}}</td>
+                                         <td>{{user.username}}</td>
+                                         <td>{{user.points}}</td>
+                                     </tr>
+                                 </tfoot>
+                             </table>
+                         </div>
+                 
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 </div>                     </div>
+
+                     </div>
+          </div>
+        </h2>
 
       <div id="mapid" style="height: 550px">{{map}}</div>
       <br>
       <br>
-      <a href="/leaderboard">Show Leaderboard</a>
-    </div>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">The Best <big>10</big></button>
+        <button type="button" class="btn btn-info btn-lg" ui-sref="leaderboard">Show Leaderboard</button>
+      </div>
 
     <div class="container"  style="padding-top: 10px">
       <!-- Example row of columns -->
@@ -43,9 +82,12 @@
 
 
       <div class="row" style ="padding-top : 20px">
+
         <div class="col-md-4">
           <!-- Panels with data -->
+                      <uib-alert type="warning" ng-show="vm.test">{{'PLEASE_WAIT_DATA'|translate}} <img id="mySpinner" src="/images/ajax-loader.gif" /></uib-alert>
           <div class="panel panel-default" ng-repeat="b in box">
+              
             <div class="panel-heading">{{b.title}}</div>
             <div class="panel-body">{{b.value}} {{b.unit}}
               <p>gemessen am: {{b.lastMeasurement}}</p>

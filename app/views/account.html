@@ -1,68 +1,164 @@
 <div class="container">
+    <div class="row">
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="col-xs-3" flow-init="{ singleFile:true }" flow-file-added="added($file,$event)" flow-drop>
+            <h4 style="font-weight: bold;">Profilbild:</h4>
+            <div class="thumbnail">
+                <img id="image" ng-hide="(vm.user.image === null)" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/Download.jpg' }}" alt="Image for {{ vm.user.firstname }}">
+            </div>
+        </div>
+        <div class="col-xs-7" style="padding-left:5em;">
+            <br>
+            <h4 style="font-weight: bold;">Profilinfos:</h4>
+            <div class=" col-md-9 col-lg-9 ">
+                <table class="table table-user-information">
+                    <tbody>
+                        <tr>
+                            <td>Vorname:</td>
+                            <td>{{vm.user.firstname}}</td>
+                        </tr>
+                        <tr>
+                            <td>Nachname:</td>
+                            <td>{{vm.user.lastname}}</td>
+                        </tr>
+                        <tr>
+                            <td>e-mail:</td>
+                            <td>{{vm.user.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Username:</td>
+                            <td>{{vm.user.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Punktzahl:</td>
+                            <td>{{vm.user.points}}</td>
+                        </tr>
+                        <tr>
+                            <td>registriert seit:</td>
+                            <td>{{vm.user.registrDate}}</td>
+                        </tr>
+                        <tr ng-hide="(vm.user.birthday == 'NaN.NaN.NaN' ||vm.user.birthday == '01.01.1970')">
+                            <td>Geburtstag:</td>
+                            <td>{{vm.user.birthday}}</td>
+                        </tr>
+                        <tr ng-hide="(vm.user.info == null || vm.user.info == '' )">
+                            <td>Information:</td>
+                            <td>{{vm.user.info}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-1" style="padding-right: 10em"> <!-- Persönliche Daten  -->
+            <br>
+            <br>
+            <a class="btn btn-primary" role="button" href="/profile">{{'Profil bearbeiten' | translate}}</a>
+            <br>
+            <br>
+        </div>
+        <div class="col-xs-3" style="padding-left:5em;">
+            <br>
+            <h4 style="font-weight: bold;">Allgemeine Auszeichnungen:</h4>
+            <div class=" col-md-9 col-lg-9 ">
+                <table class="table table-user-information">
+                    <tbody>
+                        <tr ng-show="(vm.AnzahlTage == 0)">
+                            <td>Welcome
+                                <br>
+                                <img height="90" width="90" src='images/welcome.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
 
-  <div class="row">
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="col-xs-3" flow-init="{ singleFile:true }" flow-file-added="added($file,$event)" flow-drop>
-      <h4 style="font-weight: bold;">Profilbild:</h4>
-      <div class="thumbnail">
-          <img id="image" ng-hide="(vm.user.image === null)" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/Download.jpg' }}" alt="Image for {{ vm.user.firstname }}">
-      </div>
+                        <tr ng-show="(vm.today==vm.birthday2)">
+                            <td> Happy Birthday!!!
+                                <br> 
+                                <img height="90" width="90" src='images/birthday.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.AnzahlTage <= 30)">
+                            <td>"Junger Nutzer"
+                                <br>
+                                <img height="90" width="90" src='images/WriteHome.png' alt="Badge for {{ vm.user.firstname }}"></td>
+                        </tr>
+                        <tr ng-show="(vm.isLoggedIn)">
+                            <td>JA!! Sei Aktiv! 
+                                <br>
+                                <img height="90" width="90"  src='images/CampCounselor.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.AnzahlStunden >= 250)">
+                            <td> You've been here for 250 hours!
+                                <br>
+                                <img height="90" width="90" src='images/250hours.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.AnzahlStunden >= 500)">
+                            <td> You've been here for 500 hours!
+                                <br>
+                                <img height="90" width="90" src='images/500hours.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.AnzahlStunden >= 1000)">
+                            <td> You've been here for 1000 hours!
+                                <br>
+                                <img height="90" width="90" src='images/1000hours.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.AnzahlJahre >= 1)">
+                            <td> You've been here for 1 Year!!
+                                <br>
+                                <img height="90" width="90" src='images/1_year.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.AnzahlJahre >= 2)">
+                            <td> You've been here for 2 Years!!
+                                <br>
+                                <img height="90" width="90" src='images/2_year.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>                        
+                        <tr ng-show="(vm.AnzahlJahre >= 3)">
+                            <td> You've been here for 3 Years!!
+                                <br>
+                                <img height="90" width="90" src='images/3_year.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>                        
+                        <tr ng-show="(vm.AnzahlJahre >= 5)">
+                            <td> You've been here for 5 Years!!
+                                <br>
+                                <img height="90" width="90" src='images/5_year.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-3" style="padding-left:5em;">
+            <br>
+            <h4 style="font-weight: bold;" ng-show="(vm.user.points > 100)">Game Auszeichnungen:</h4>
+            <div class=" col-md-9 col-lg-9 " ng-show="(vm.user.points > 100)">
+                <table class="table table-user-information">
+                    <tbody>
+                        <tr ng-show="(vm.user.points > 100)">
+                            <td> 
+                                <img height="90" width="90" src='images/score-100.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.user.points > 1000)">
+                            <td> 
+                                <img height="90" width="90"  src='images/score-1000.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.user.points > 10000)">
+                            <td>
+                                <img height="90" width="90" src='images/score-10000.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <div class="col-xs-7" style="padding-left:5em;">
-      <br>
-      <h4 style="font-weight: bold;">Profilinfos:</h4>
-      <div class=" col-md-9 col-lg-9 ">
-        <table class="table table-user-information">
-          <tbody>
-          <tr>
-            <td>Vorname:</td>
-            <td>{{vm.user.firstname}}</td>
-          </tr>
-          <tr>
-            <td>Nachname:</td>
-            <td>{{vm.user.lastname}}</td>
-          </tr>
-          <tr>
-            <td>e-mail:</td>
-            <td>{{vm.user.email}}</td>
-          </tr>
-          <tr>
-            <td>Username:</td>
-            <td>{{vm.user.username}}</td>
-          </tr>
-          <tr>
-            <td>Punktzahl:</td>
-            <td>{{vm.user.points}}</td>
-          </tr>
-          <tr>
-            <td>registriert seit:</td>
-            <td>{{vm.user.registrDate}}</td>
-          </tr>
-          <tr ng-hide="(vm.user.birthday == 'NaN.NaN.NaN' ||vm.user.birthday == '01.01.1970')">
-            <td>Geburtstag:</td>
-            <td>{{vm.user.birthday}}</td>
-          </tr>
-          <tr ng-hide="(vm.user.info == null || vm.user.info == '' )">
-            <td>Information:</td>
-            <td>{{vm.user.info}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="col-xs-1" style="padding-right: 10em"> <!-- Persönliche Daten  -->
-      <br>
-      <br>
-      <a class="btn btn-primary" role="button" href="/profile">{{'Profil bearbeiten' | translate}}
-      </a>
-    </div>
-
-      
-
-</div>
 </div>

@@ -16,6 +16,7 @@
     };
       
       function renderDate(date){
+          
       var rightDate = new Date(date);
       var day = rightDate.getDate();
       var month = rightDate.getMonth()+1;
@@ -27,6 +28,22 @@
               month = "0" + month
           }
             var correctDate = day +'.'+ month +'.'+ year;
+      return correctDate;
+        }
+    
+      function renderDate2(date){
+      var today = new Date();
+      var rightDate = new Date(date);
+      var day = rightDate.getDate();
+      var month = rightDate.getMonth()+1;
+      var year = today.getUTCFullYear();
+          if (day < 10){
+              day = "0" + day
+          }
+          if (month < 10){
+              month = "0" + month
+          }
+            var correctDate = day +'.'+ month+'.'+ year;
       return correctDate;
         }
 
@@ -46,7 +63,8 @@
       getProfile : getProfile,
       countPoints : countPoints,
       getAllProfiles : getAllProfiles,
-      renderDate: renderDate
+       renderDate: renderDate,
+      renderDate2: renderDate2
     };
   }
 

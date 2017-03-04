@@ -5,8 +5,8 @@
     .module('openSenseMapApp')
     .controller('gameCtrl', gameCtrl);
 
-  gameCtrl.$inject = ['authentication','$location', 'meanData', '$translate', 'userService', '$scope', '$http'];
-  function gameCtrl(authentication,$location, meanData,  $translate, userService, $scope, $http) {
+  gameCtrl.$inject = ['authentication','$location', 'meanData', '$translate', 'userService', '$scope', '$http','ngDialog'];
+  function gameCtrl(authentication,$location,meanData,  $translate, userService, $scope, $http,ngDialog) {
 
 
    var vm = this;
@@ -22,7 +22,36 @@
    // document.getElementById('profile').style.display='block'
    // document.getElementById('navlogin').style.display='none'
 
+//leaderboard
+      
+          var vm = this;
 
+    vm.users = {};
+    vm.user = {};
+
+    meanData.getAllProfiles()
+      .success(function (data) {
+        vm.users = data;
+        console.log(vm.users);
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
+    meanData.getProfile()
+      .success(function (data) {
+        vm.user = data;
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
+  
+      
+      
+      //ende Leaderboard 
+      
+      
     var firstpolyline;
       var ok;
       var repeat;
@@ -224,6 +253,7 @@
         mymap.removeLayer(repeat);
         mymap.removeLayer(firstpolyline);
       };
+            vm.test=true;
 
       function gameBox(gameBoxId, $http) {
         $http({
@@ -235,7 +265,6 @@
            suchen, oder beim fall eines undefined,
            TO-DO indoor boxen auschließen
            */
-
           if (response.data.sensors === undefined ||
             response.data.sensors[0].hasOwnProperty("lastMeasurement") == false ||
             response.data.sensors[0].lastMeasurement == null ||
@@ -244,7 +273,9 @@
             response.data.sensors.length<3
           ) {
             randomize(boxId, $http);
-          } else {
+             
+              
+          } else {vm.test=false;
             console.log("sucess");
 
             //übergebene Koordinaten für clickevent zur Berechnung
@@ -264,7 +295,13 @@
               var year = measurementDate.getUTCFullYear();
               var hours = measurementDate.getUTCHours();
               var minutes = measurementDate.getUTCMinutes();
-              var fullDate = day +'.'+ month +'.'+ year + ' um: ' + hours + ':' + minutes;
+                if (minutes < 10){
+                    minutes = "0" + minutes; 
+                }
+                if (hours < 10){
+                    hours = "0" + hours; 
+                }
+              var fullDate = day +'.'+ month +'.'+ year + ' um: ' + hours + ':' + minutes + ' (UTC)';
               sensor.lastMeasurement = fullDate;
               sensors.push(sensor);
             }
@@ -291,7 +328,6 @@
             console.log(e);
           });
       };
-
   };
     
     
