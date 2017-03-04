@@ -1,0 +1,244 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>openSenseMap</title>
+    <meta name="description" content="OpenSenseMap is a platform for publishing and visualizing environmental sensor data.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <base href="/">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="icon" href="/images/sensebox-favicon.png" type="image/png">
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css" />
+    <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.css" />
+    <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css" />
+    <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons-wind.css" />
+    <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons-wind.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-languages/languages.min.css" />
+    <link rel="stylesheet" href="bower_components/c3/c3.css" />
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+    <link rel="stylesheet" href="bower_components/Leaflet.EasyButton/src/easy-button.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/BrixSlab-font.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/rcWizard.css">
+    <link rel="stylesheet" href="styles/osemicons.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="openSenseMapApp" flow-prevent-drop>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Fixed navbar -->
+    <header class="navbar navbar-default navbar-fixed-top" ng-controller="HeaderCtrl">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span id="brand_with_logo"><a class="navbar-brand" href="/"><img src="images/sensebox-favicon.png"><div class='oSeM-brand'>&nbsp;openSenseMap</div></a></span>
+                    <div class="ng-cloak brand-stats">
+                        <span class="sensebox-stats">{{ counts.boxes }}</span> {{'SENSEBOXES'|translate}}<br/>
+                        <span class="sensebox-stats">{{ counts.measurements }}</span> {{'MEASUREMENTS'|translate}}
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="ng-cloak nav navbar-nav navbar-right">
+                        <li ui-sref-active-eq="active" class="menuitem">
+                            <a ui-sref="explore.map">
+                                <span class="glyphicon glyphicon-zoom-in"></span> {{'EXPLORE' | translate}}
+                            </a>
+                        </li>
+                        <li ui-sref-active-eq="active" class="menuitem">
+                            <a ui-sref="explore.map.interpolation">
+                                <span class="glyphicon glyphicon glyphicon-cloud"></span> {{'INTERPOLATION' | translate}}
+                            </a>
+                        </li>
+
+                        <li ui-sref-active-eq="active" class="menuitem" ng-class="{filteractive: filterActive.active}">
+                            <a ui-sref="explore.map.filter">
+                                <span class="glyphicon glyphicon glyphicon-cloud"></span> {{'FILTER' | translate}}
+                                <span style="font-size:smaller;" ng-if="filterActive.active"><br/><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Filter active</span>
+                            </a>
+                        </li>
+
+                        <li ui-sref-active-eq="active" class="menuitem">
+                            <a ui-sref="explore.map.download">
+                                <span class="glyphicon glyphicon-floppy-save"></span> {{'DATADOWNLOAD' | translate}}
+                            </a>
+                        </li>
+
+
+                        <li ui-sref-active-eq="active" class="menuitem">
+                            <a ui-sref="register">
+                                <span class="glyphicon glyphicon-barcode"></span> {{'Box REGISTER' | translate}}
+                            </a>
+                        </li>
+                        <li ui-sref-active-eq="active" class="menuitem"  id="navlogin" >
+                            <a ui-sref="explore.map.login">
+                                <span class="glyphicon glyphicon-off"></span>
+                                {{'LOGIN' | translate}}</a>
+                        </li>
+                      <li class="dropdown dropdown-languages" id="profile" >
+                            <a href="#" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{'USER' | translate}}<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <!-- languages-start --><li><a ng-click="changeLang('de_DE')"><span class="lang-sm lang-lbl-full" lang="de"></span></a></li><li><a ng-click="changeLang('en_US')"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li><li><a ng-click="changeLang('es_CO')"><span class="lang-sm lang-lbl-full" lang="es"></span></a></li><li><a ng-click="changeLang('fr_FR')"><span class="lang-sm lang-lbl-full" lang="fr"></span></a></li><li><a ng-click="changeLang('it_IT')"><span class="lang-sm lang-lbl-full" lang="it"></span></a></li><li><a ng-click="changeLang('ms_MY')"><span class="lang-sm lang-lbl-full" lang="ms"></span></a></li><li><a ng-click="changeLang('nl_NL')"><span class="lang-sm lang-lbl-full" lang="nl"></span></a></li><li><a ng-click="changeLang('pl_PL')"><span class="lang-sm lang-lbl-full" lang="pl"></span></a></li><li><a ng-click="changeLang('pt_BR')"><span class="lang-sm lang-lbl-full" lang="pt"></span></a></li><li><a ng-click="changeLang('ru_RU')"><span class="lang-sm lang-lbl-full" lang="ru"></span></a></li><!-- languages-end -->
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-inner">
+          <div class="container">
+            <form class="navbar-form search">
+                <div class="form-group typeahead-search" style="display: inline;">
+                    <div class="ng-cloak input-group xxxl" style="display: table; padding: 0px 12px;">
+                        <input type="text" style="border-radius: 4px;" ng-model="asyncSelected" ng-model-options="modelOptions" placeholder="{{ 'SEARCH' | translate }}" uib-typeahead="address.display_name for address in getLocations($viewValue)" typeahead-on-select="selectBox($item)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" typeahead-popup-template-url="/views/search.html" typeahead-template-url="views/search.item.html" typeahead-min-length="3">
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </header>
+
+    <!-- Add your site or application content here -->
+    <div class="container">
+        <div ui-view></div>
+    </div>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular-underscore/angular-underscore.js"></script>
+    <script src="bower_components/ngDialog/js/ngDialog.js"></script>
+    <script src="bower_components/flow.js/dist/flow.js"></script>
+    <script src="bower_components/ng-flow/dist/ng-flow.js"></script>
+    <script src="bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/c3/c3.js"></script>
+    <script src="bower_components/c3-angular/c3-angular.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment/locale/de.js"></script>
+    <script src="bower_components/moment/locale/es.js"></script>
+    <script src="bower_components/moment/locale/pl.js"></script>
+    <script src="bower_components/moment/locale/pt.js"></script>
+    <script src="bower_components/moment/locale/it.js"></script>
+    <script src="bower_components/moment/locale/fr.js"></script>
+    <script src="bower_components/moment/locale/ms.js"></script>
+    <script src="bower_components/moment/locale/nl.js"></script>
+    <script src="bower_components/moment/locale/ru.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
+    <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+    <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
+    <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+    <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+    <script src="bower_components/Leaflet.EasyButton/src/easy-button.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script type="text/javascript" src="scripts/directives/jquery.bootstrap.wizard.js"></script>
+    <script type="text/javascript" src="scripts/directives/rcSubmit.js"></script>
+    <script type="text/javascript" src="scripts/directives/rcForm.js"></script>
+    <script type="text/javascript" src="scripts/directives/rcDisabled.js"></script>
+	<script type="text/javascript" src="scripts/directives/rcWizard.js"></script>
+    <!--<script type="text/javascript" src="scripts/directives/navigation.controller.js"></script>
+    <script type="text/javascript" src="scripts/directives/navigation.directive.js"></script>-->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/userregister.js"></script>
+    <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/controllers/map.js"></script>
+    <script src="scripts/controllers/sidebar.js"></script>
+    <script src="scripts/controllers/sidebar.boxdetails.js"></script>
+    <script src="scripts/controllers/sidebar.filter.js"></script>
+    <script src="scripts/controllers/sidebar.interpolation.js"></script>
+    <script src="scripts/controllers/sidebar.login.js"></script>
+    <script src="scripts/controllers/logout.js"></script>
+    <script src="scripts/controllers/sidebar.loginsuccess.js"></script>
+    <script src="scripts/controllers/sidebar.download.js"></script>
+    <script src="scripts/controllers/editbox.js"></script>
+    <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
+    <script src="scripts/controllers/account.js"></script>
+    <script src="scripts/controllers/game.js"></script>
+    <script src="scripts/controllers/leaderboard.js"></script>
+    <script src="scripts/services/opensenseboxapi.js"></script>
+    <script src="scripts/services/opensenseboxes.js"></script>
+    <script src="scripts/services/opensenseboxessensors.js"></script>
+    <script src="scripts/services/opensensemapdata.js"></script>
+    <script src="scripts/services/osemdata.js"></script>
+    <script src="scripts/services/filters.js"></script>
+    <script src="scripts/services/validation.js"></script>
+    <script src="scripts/services/opensensebox.js"></script>
+    <script src="scripts/services/sensoricons.js"></script>
+    <script src="scripts/services/authentication.service.js"></script>
+    <script src="scripts/services/data.service.js"></script>
+    <script src="scripts/services/userService.js"></script>
+    <!-- endbuild -->
+
+    <!-- Piwik -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      _paq.push(["setDomains", ["*.opensensemap.org"]]);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//piwik.uni-muenster.de/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 31]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><p><img src="//piwik.uni-muenster.de/piwik.php?idsite=31" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var $_Tawk_API={},$_Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/58259b7de808d60cd081071c/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+    </body>
+
+    </body>
+</html>
