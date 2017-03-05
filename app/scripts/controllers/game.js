@@ -347,6 +347,7 @@
             if(punkteGesamt > (point_badge[i] - vm.user.points)){new_points
                 document.getElementById("new_badge").src = badge[i];
                 document.getElementById("new_points").innerHTML = point_badge[i] + " Punkte erreicht!!!";
+                i=i+1
                 $("#myModal3").modal();
             }
             //$location.path('/account');
