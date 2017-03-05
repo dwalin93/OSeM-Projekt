@@ -36,10 +36,10 @@
               .success(function (data) {
               vm.user = data;
               vm.user.points=vm.user.points;
-              console.log(vm.user.points);
+              //console.log(vm.user.points);
             while(vm.user.points > point_badge[i]){
                 i++;
-                console.log(i);
+                //console.log(i);
             };
           })
               .error(function (e) {
@@ -131,10 +131,10 @@
 
 
       function score() {
-        console.log("Die Entfernung zur Sensebox beträgt: " +
-          (position.distanceTo([latbox, longbox]) / 1000).toFixed(2) + "Km");
+        //console.log("Die Entfernung zur Sensebox beträgt: " +
+        //  (position.distanceTo([latbox, longbox]) / 1000).toFixed(2) + "Km");
         $scope.distance = (position.distanceTo([latbox, longbox]) / 1000).toFixed(2)
-        console.log("l33337 Test  " + $scope.distance);
+        //console.log("l33337 Test  " + $scope.distance);
         // punkte einteilung
         if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 50) {
           punkte = Number(100);
@@ -180,7 +180,7 @@
       mymap.on('click', onMapClick);
 
       $scope.distance = boxDistance;
-      console.log("heiiiide " + boxDistance);
+      //console.log("heiiiide " + boxDistance);
       //boxDistance ist undefined
 
 
@@ -227,7 +227,7 @@
           //ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
-          console.log(pointA, pointB);
+          //console.log(pointA, pointB);
 
 
           firstpolyline = new L.Polyline(pointList, {
@@ -259,8 +259,10 @@
       
       
       mymap.on('click', onMapClick);
+      
       //sucht eine Randombox aus und übergibt das dann der funktion gameBox
       //übergebene boxId
+      
       function randomize(boxId, http) {
         var gameBoxId = boxId[Math.floor(Math.random() * boxId.length)];
         console.log('RandomBoxId: ' + gameBoxId);
@@ -291,7 +293,8 @@
             response.data.sensors.length<3
           ) {
             randomize(boxId, $http);              
-          } else {vm.test=false;
+          } else {
+              vm.test=false;
             console.log("sucess");
 
             //übergebene Koordinaten für clickevent zur Berechnung
@@ -330,7 +333,7 @@
           }
 
         }, function myError(response) {
-          console.log(response);
+          //console.log(response);
         });
       }
 
@@ -339,14 +342,17 @@
       function savePoints(points){
         meanData.countPoints(points)
           .success(function () {
-            if(punkteGesamt > (point_badge[i] - vm.user.points)){
-                document.getElementById("new_badge").src = badge[i]
+            var pkt = punkteGesamt + vm.user.points;
+            console.log(pkt)
+            if(punkteGesamt > (point_badge[i] - vm.user.points)){new_points
+                document.getElementById("new_badge").src = badge[i];
+                document.getElementById("new_points").innerHTML = point_badge[i] + " Punkte erreicht!!!";
                 $("#myModal3").modal();
             }
             //$location.path('/account');
           })
           .catch(function (e) {
-            console.log(e);
+            //console.log(e);
           });
       };
   };

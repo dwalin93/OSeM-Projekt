@@ -213,6 +213,11 @@
                                 <img height="90" width="90"  src='images/score-200.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
+                        <tr ng-show="(vm.user.points > 100)">
+                            <td> 
+                                <img height="90" width="90"  src='images/score-100.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
