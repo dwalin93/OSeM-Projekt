@@ -341,6 +341,7 @@
           .success(function () {
             if(punkteGesamt > (point_badge[i] - vm.user.points)){
                 document.getElementById("new_badge").src = badge[i]
+                i=i+1
                 $("#myModal3").modal();
             }
             //$location.path('/account');
