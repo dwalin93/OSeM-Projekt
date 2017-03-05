@@ -27,7 +27,7 @@
 
     vm.users = {};
     vm.user = {};
-    var point_badge=[100, 200, 500, 1000, 2500, 5000, 10000, 11520 , 20000, 50000];
+    var point_badge=[100, 200, 500, 1000, 2500, 5000, 10000, 15000 , 20000, 50000];
     var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
       
       var i = 0;
