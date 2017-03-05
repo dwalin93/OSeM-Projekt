@@ -41,6 +41,13 @@
     meanData.getAllProfiles()
       .success(function (data) {
         vm.users = data;
+        console.log(vm.user.firstname)
+        console.log(vm.user.lastname)
+        console.log(vm.user.username)
+        console.log(vm.users)
+        console.log(vm.users[0].firstname)
+        console.log(vm.users[0].lastname)
+        console.log(vm.users[0].username)
       })
       .error(function (e) {
         console.log(e);

@@ -86,7 +86,7 @@ module.exports.savePoints = function(req, res){
 
 module.exports.allProfiles = function(req, res){
 
-  User.find({}, {username: 1, points: 1, _id: 0}, {$orderby: {points: 1}}, function(err, users){
+  User.find({}, {firstname: 1, lastname: 1, username: 1, points: 1, _id: 0}, {"sort": { points: -1 }}, function(err, users){
     if (err){
       res.status(401).json({
         "message" : "unable to find the users"

@@ -137,8 +137,9 @@
         </div>
         <div class="col-xs-3" style="padding-left:5em;">
             <br>
-            <h4 style="font-weight: bold;" ng-show="(vm.user.points > 0)">Game Auszeichnungen:</h4>
-            <div class=" col-md-9 col-lg-9 " ng-show="(vm.user.points > 0)">
+            <h4 style="font-weight: bold;" ng-show="(vm.user.points >= 0)">Game:</h4>
+            <h4 style="font-weight: bold;" ng-show="(vm.user.points > 100)">Game Auszeichnungen:</h4>
+            <div class=" col-md-9 col-lg-9 " ng-show="(vm.user.points >= 0)">
                 <table class="table table-user-information">
                     <tbody>
                         <tr ng-show="(vm.user.points < 100)">
@@ -146,17 +147,17 @@
                                 <img height="90" width="90" src='images/play_now.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.user.username === vm.users[0].username)">
+                        <tr ng-show="(vm.user.username == vm.users[0].username && vm.user.lastname == vm.users[0].lastname)">
                             <td> 
                                 <img height="90" width="90" src='images/first.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.user.username === vm.users[1].username)">
+                        <tr ng-show="(vm.user.username == vm.users[1].username && vm.user.lastname == vm.users[1].lastname)">
                             <td> 
                                 <img height="90" width="90" src='images/second.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.user.username === vm.users[2].username)">
+                        <tr ng-show="(vm.user.username == vm.users[2].username && vm.user.lastname == vm.users[2].lastname)">
                             <td> 
                                 <img height="90" width="90" src='images/third.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>

@@ -321,7 +321,8 @@
       function savePoints(points){
         meanData.countPoints(points)
           .success(function () {
-            console.log("gespeichert");
+            var punk = punkteGesamt + vm.user.points;
+            console.log("gespeichert" + " - - - " +  punk);
             //$location.path('/account');
           })
           .catch(function (e) {
