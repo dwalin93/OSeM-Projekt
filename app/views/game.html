@@ -30,6 +30,24 @@
                  </div>
              </div>
           
+          <div id="myModal3" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                         <h4 class="modal-title">NEUE Auszeichnung!</h4>
+                         </div>
+                         <div class="modal-body">
+                             <p>du hast eine Neue Auszeichnung!!!</p>
+                                <img height="200" width="200" id="new_badge" src='images/second.png' alt="Badge for {{ vm.user.firstname }}"> </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+          
           
 
 
@@ -68,27 +86,50 @@
                      </div>
           </div>
         </h2>
+        <div id="myModal3" class="modal fade" role="dialog" ng-show="(vm.pkt > 500)">
+            <div class="modal-dialog">
 
+
+                     <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                         <h4 class="modal-title">How to Play</h4>
+                         </div>
+                         <div class="modal-body">
+                             <p>1. Click on the position where you think the data came from<br>
+                                2. Click the Tick Button to confirm your choice<br>
+                                3. Press the Reload Button to load a new Box<br>
+                                4. To see the leaderboard, just cklick the link below the map<br>
+                                5. If you don't want to play anymore just leave the site. Your points will be saved automatically
+                             </p>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         </div>
+                     </div>
+            </div>
+        </div>
+        
       <div id="mapid" style="height: 550px">{{map}}</div>
       <br>
       <br>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">The Best <big>10</big></button>
-        <button type="button" class="btn btn-info btn-lg" ui-sref="leaderboard">Show Leaderboard</button>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" id="myBtn">The Best <big>10</big></button>
+        <button type="button" class="btn btn-info btn-lg" ng-click="test()" ui-sref="leaderboard" >Show Leaderboard</button>
       </div>
 
     <div class="container"  style="padding-top: 10px">
       <!-- Example row of columns -->
-      <!-- Trigger the modal with a button -->
+      <!-- Trigger the modal with a button   data-target="#myModal2"  -->
 
 
       <div class="row" style ="padding-top : 20px">
 
         <div class="col-md-4">
           <!-- Panels with data -->
-            <uib-alert type="warning" ng-show="vm.test">{{'PLEASE_WAIT_DATA'|translate}} <img id="mySpinner" src="/images/ajax-loader.gif" /></uib-alert>
+            <uib-alert type="warning" ng-show="vm.test">{{'PLEASE_WAIT_DATA'|translate}} <img id="mySpinner" src="/images/throbber.gif" /></uib-alert>
             
           <div class="panel panel-default" ng-repeat="b in box">
-              
+
             <div class="panel-heading">{{b.title}}</div>
             <div class="panel-body">{{b.value}} {{b.unit}}
               <p>gemessen am: {{b.lastMeasurement}}</p>
@@ -100,6 +141,9 @@
     </div>
     <!-- /container -->
   </div>
+    
+    
+    
   <hr>
   <footer>
     <p>&copy; 2016 Höltgen-Qiu Inc.</p>

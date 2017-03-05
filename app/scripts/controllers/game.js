@@ -22,31 +22,47 @@
    // document.getElementById('profile').style.display='block'
    // document.getElementById('navlogin').style.display='none'
 
-//leaderboard
-      
-          var vm = this;
+//leaderboard + Punkte Auszeichnungen
+       var vm = this;
 
     vm.users = {};
     vm.user = {};
+    var point_badge=[100, 200, 500, 1000, 2500, 5000, 10000, 11520 , 20000, 50000];
+    var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
+      
+      var i = 0;
+      
+          meanData.getProfile()
+              .success(function (data) {
+              vm.user = data;
+              vm.user.points=vm.user.points;
+              console.log(vm.user.points);
+            while(vm.user.points > point_badge[i]){
+                i++;
+                console.log(i);
+            };
+          })
+              .error(function (e) {
+              console.log(e);
+          });
+      
+      $(document).ready(function(){
+          $("#myBtn").click(function(){
+              meanData.getAllProfiles()
+                  .success(function (data) {
+                  vm.users = data;
+              })
+                  .error(function (e) {
+                  console.log(e);
+              });
 
-    meanData.getAllProfiles()
-      .success(function (data) {
-        vm.users = data;
-        console.log(vm.users);
-      })
-      .error(function (e) {
-        console.log(e);
+
+          
+          
+
+      $("#myModal2").modal();
+          });
       });
-
-    meanData.getProfile()
-      .success(function (data) {
-        vm.user = data;
-      })
-      .error(function (e) {
-        console.log(e);
-      });
-
-  
       
       
       //ende Leaderboard 
@@ -58,6 +74,7 @@
     var popupergebnis;
     var latbox;
     var punkte = 0;
+    vm.pkt = 0;
     var punkteGesamt = 0;
     var longbox;
     var marker = null;
@@ -74,6 +91,7 @@
     $scope.box = [];
     $scope.distance = [];
     var gameBoxId = [];
+    
 
     var greenIcon = new L.Icon({
       iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -120,19 +138,19 @@
         // punkte einteilung
         if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 50) {
           punkte = Number(100);
-          punkteGesamt =  punkteGesamt + 100;
+          punkteGesamt =  punkteGesamt + punkte;
         }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 150 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 50) {
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) <= 150 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 50) {
           punkte = Number(50);
-          punkteGesamt =  punkteGesamt  + 50;
+          punkteGesamt =  punkteGesamt  + punkte;
         }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 250 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 100) {
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 250 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 150) {
           punkte = Number(10);
-          punkteGesamt =  punkteGesamt  + 10;
+          punkteGesamt =  punkteGesamt  + punkte;
         }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 250) {
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 250) {
           punkte = Number(1);
-          punkteGesamt = punkteGesamt  + 1;
+          punkteGesamt = punkteGesamt  + punkte;
         }
       };
 
@@ -181,7 +199,7 @@
           //ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
-          console.log(pointA, pointB);
+     //     console.log(pointA, pointB);
           firstpolyline = new L.Polyline(pointList, {
             color: 'red',
             weight: 3,
@@ -193,7 +211,7 @@
           mymap.fitBounds(firstpolyline.getBounds());
             
         var poplatlon = [(pointA[0]+pointB[0])/2,(pointA[1]+pointB[1])/2]
-            console.log(poplatlon)
+      //      console.log(poplatlon)
         popupergebnis = L.popup()
             .setLatLng(poplatlon)
             .setContent("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt)
@@ -272,9 +290,7 @@
             response.data.exposure =="indoor"||
             response.data.sensors.length<3
           ) {
-            randomize(boxId, $http);
-             
-              
+            randomize(boxId, $http);              
           } else {vm.test=false;
             console.log("sucess");
 
@@ -318,11 +334,15 @@
         });
       }
 
+      
+
       function savePoints(points){
         meanData.countPoints(points)
           .success(function () {
-            var punk = punkteGesamt + vm.user.points;
-            console.log("gespeichert" + " - - - " +  punk);
+            if(punkteGesamt > (point_badge[i] - vm.user.points)){
+                document.getElementById("new_badge").src = badge[i]
+                $("#myModal3").modal();
+            }
             //$location.path('/account');
           })
           .catch(function (e) {

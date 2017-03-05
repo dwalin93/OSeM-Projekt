@@ -19,6 +19,7 @@
         vm.user.registrDate = meanData.renderDate(vm.user.registrDate);
         vm.today = meanData.renderDate(today);
         vm.user.points=vm.user.points;
+      console.log(vm.user.points);
 
         if (vm.user.birthday != ""){
           vm.birthday2 = meanData.renderDate2(vm.user.birthday)
@@ -41,13 +42,6 @@
     meanData.getAllProfiles()
       .success(function (data) {
         vm.users = data;
-        console.log(vm.user.firstname)
-        console.log(vm.user.lastname)
-        console.log(vm.user.username)
-        console.log(vm.users)
-        console.log(vm.users[0].firstname)
-        console.log(vm.users[0].lastname)
-        console.log(vm.users[0].username)
       })
       .error(function (e) {
         console.log(e);
