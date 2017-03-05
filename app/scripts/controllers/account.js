@@ -17,7 +17,8 @@
         vm.user = data;
         vm.user.registrDate2 = vm.user.registrDate;
         vm.user.registrDate = meanData.renderDate(vm.user.registrDate);
-        vm.today = meanData.renderDate(today)
+        vm.today = meanData.renderDate(today);
+        vm.user.points=vm.user.points;
 
         if (vm.user.birthday != ""){
           vm.birthday2 = meanData.renderDate2(vm.user.birthday)
@@ -35,8 +36,16 @@
         console.log(e);
       });
 
-      
-      
+      vm.users = {};
+    
+    meanData.getAllProfiles()
+      .success(function (data) {
+        vm.users = data;
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
       
 
       
