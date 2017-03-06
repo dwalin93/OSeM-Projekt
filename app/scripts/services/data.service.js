@@ -50,6 +50,8 @@
 
       
       function getRank(user,users){
+          getAllProfiles();
+          getProfile();
           for (var d = 0; d < users.length; d++) {
               if(user.username == users[d].username){
                   return d;

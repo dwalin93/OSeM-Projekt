@@ -306,13 +306,48 @@
             latbox = response.data.loc[0].geometry.coordinates[1];
             longbox = response.data.loc[0].geometry.coordinates[0];
             var sensors = [];
+            var sensors1 = [];
+            var sensors2 = [];
+              
+              
+              console.log(sensors)
 
-            for (var i = 0; i < response.data.sensors.length; i++) {
-              var sensor = {};
-              sensor.title = response.data.sensors[i].title;
-              sensor.value = response.data.sensors[i].lastMeasurement.value;
-              sensor.unit = response.data.sensors[i].unit;
-              var x = response.data.sensors[i].lastMeasurement.createdAt;
+              var d = 3;
+              var p = 0;
+              
+              for (var ii = 0 ; ii < response.data.sensors.length; ii++){
+                  if (response.data.sensors[ii].title == "Temperatur" ){
+                      sensors1[0]=response.data.sensors[ii];
+                  }else if(response.data.sensors[ii].title == "rel. Luftfeuchte" || response.data.sensors[ii].title == "Luftfeuchtigkeit"){
+                      sensors1[1]=response.data.sensors[ii];
+                  }else if(response.data.sensors[ii].title == "Luftdruck" ){
+                      sensors1[2]=response.data.sensors[ii];
+                  }else{
+                      sensors1[d]=response.data.sensors[ii];
+                        d++;
+                  }
+              }
+              
+              if(sensors1.length !== response.data.sensors.length){
+              for (var iii = 0; iii<sensors1.length; iii++){
+                  if (sensors1[iii]==undefined){
+                      console.log("NEU GEORDNET!!!S");
+                  }else{
+                      sensors2[p] = sensors1[iii];
+                      p++                      
+                  }
+              }
+              }else{
+                  sensors2=sensors1;
+              }
+              
+                                
+              for (var i = 0; i < sensors2.length; i++) {
+              var sensor = {};                
+              sensor.title = sensors2[i].title;
+              sensor.value = sensors2[i].lastMeasurement.value;
+              sensor.unit = sensors2[i].unit;
+              var x = sensors2[i].lastMeasurement.createdAt;
               var measurementDate = new Date(x);
               var day = measurementDate.getDate();
               var month = measurementDate.getMonth()+1;
