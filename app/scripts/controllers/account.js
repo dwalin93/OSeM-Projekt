@@ -32,6 +32,9 @@
           vm.user.registrDate2 = new Date(meanData.renderDate2(vm.user.registrDate2))
           if (vm.user.registrDate2 > new Date(today))
             vm.AnzahlJahre = vm.AnzahlJahre - 1 ;
+          
+          vm.rank = meanData.getRank(vm.user,vm.users)
+
       })
         .error(function (e) {
         console.log(e);
