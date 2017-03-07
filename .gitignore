@@ -53,3 +53,4 @@ npm-debug.log
 app/userimages
 
 #.temp erzeugt von Grunt
+.tmp
