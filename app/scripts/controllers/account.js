@@ -19,7 +19,17 @@
         vm.user.registrDate = meanData.renderDate(vm.user.registrDate);
         vm.today = meanData.renderDate(today);
         vm.user.points=vm.user.points;
-
+          
+          if (vm.user.image == undefined||vm.user.image == null){
+              vm.user.image='';
+                    }
+                  if (vm.user.birthday == undefined||vm.user.birthday == null){
+              vm.user.birthday=0;
+                    }
+          if (vm.user.info == undefined||vm.user.info == null){
+                        vm.user.info='';
+          }
+          
           if (vm.user.birthday != ""){
           vm.birthday2 = meanData.renderDate2(vm.user.birthday)
           vm.user.birthday = meanData.renderDate(vm.user.birthday)
