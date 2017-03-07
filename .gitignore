@@ -51,3 +51,6 @@ npm-debug.log
 
 #profilbilder
 app/userimages
+
+#.temp erzeugt von Grunt
+.tmp
