@@ -58,6 +58,9 @@
             <a class="btn btn-primary" role="button" href="/profile">{{'Profil bearbeiten' | translate}}</a>
             <br>
             <br>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">{{'Erreichbare Auszeichnungen' | translate}}</button>
+         
+            <br>
         </div>
         <div class="col-xs-3" style="padding-left:5em;">
             <br>
@@ -81,12 +84,12 @@
                         <tr ng-show="(vm.AnzahlTage <= 30)">
                             <td>"Junger Nutzer"
                                 <br>
-                                <img height="90" width="90" src='images/WriteHome.png' alt="Badge for {{ vm.user.firstname }}"></td>
+                                <img height="90" width="90" src='images/New.png' alt="Badge for {{ vm.user.firstname }}"></td>
                         </tr>
                         <tr ng-show="(vm.isLoggedIn)">
                             <td>JA!! Sei Aktiv! 
                                 <br>
-                                <img height="90" width="90"  src='images/CampCounselor.png' alt="Badge for {{ vm.user.firstname }}">
+                                <img height="90" width="90"  src='images/GoUser.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
                         <tr ng-show="(vm.AnzahlJahre >= 5)">
@@ -148,23 +151,23 @@
                                 <img height="90" width="90" src='images/play_now.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.rank == 0)">
+                        <tr ng-show="(vm.users[0].username == vm.user.username)">
                             <td> 
                                 <img height="90" width="90" src='images/first.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
 
-                        <tr ng-show="(vm.rank == 1)">
+                        <tr ng-show="(vm.users[1].username == vm.user.username)">
                             <td> 
                                 <img height="90" width="90" src='images/second.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.rank == 2)">
+                        <tr ng-show="(vm.users[2].username == vm.user.username)">
                             <td> 
                                 <img height="90" width="90" src='images/third.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.rank < 9 && vm.rank > 2)">
+                        <tr ng-show="( vm.users[3].username == vm.user.username ||vm.users[4].username == vm.user.username ||vm.users[5].username == vm.user.username ||vm.users[6].username == vm.user.username ||vm.users[7].username == vm.user.username ||vm.users[8].username == vm.user.username ||vm.users[9].username == vm.user.username)">
                             <td> 
                                 <img height="90" width="90" src='images/top_ten.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
@@ -222,7 +225,60 @@
                         </tr>
                     </tbody>
                 </table>
+        
+    
             </div>
         </div>
     </div>
+    
+    <div id="myModal" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                         <h2 class="modal-title">How to Play</h2>
+                         </div>
+                         <div class="modal-body">
+                             <h3 class="modal-title">{{'Game Badge' | translate}}</h3>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-100.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-200.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-500.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-1000.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-2500.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-5000.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-10000.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-15000.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-20000.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/score-50000.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/first.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/second.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/third.png'>    
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/top_ten.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/play_now.png'>
+                                              
+                         </div>
+                         <div class="modal-body">
+                             <h3 class="modal-title">{{'Account Badge' | translate}}</h3>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/1_year.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/2_year.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/3_year.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/5_year.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/250hours.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/500hours.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/1000hours.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/birthday.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/GoUser.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/Welcome.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/New.png'>     
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+          
+    
+    
 </div>

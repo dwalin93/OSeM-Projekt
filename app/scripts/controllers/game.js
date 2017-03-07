@@ -29,8 +29,6 @@
     vm.user = {};
     var point_badge=[100, 200, 500, 1000, 2500, 5000, 10000, 15000 , 20000, 50000];
     var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
-      var badge2 = ["images/first.png","images/second.png","images/third.png","images/top_ten.png",];
-      
       var i = 0;
       
           meanData.getProfile()
@@ -75,8 +73,6 @@
       var repeat;
     var popupergebnis;
     var latbox;
-    var rank_old =-1;
-      vm.rank_old = rank_old;
     var punkte = 0;
     vm.pkt = 0;
     var punkteGesamt = 0;
@@ -382,42 +378,15 @@
       
 
       function savePoints(points){
-          if (vm.rank_old == -1){
-            vm.rank_old= meanData.getRank(vm.user,vm.users)
-            console.log("NEU")
-            }
-          
-
-          
-        meanData.countPoints(points)
+            
+          meanData.countPoints(points)
           .success(function () {
-            alleProfile()
-
-            
-            vm.rank_new = meanData.getRank(vm.user,vm.users)
-            console.log(vm.rank_new )
-            console.log(vm.rank_old)
-            
-            if(vm.rank_new != vm.rank_old){
-                console.log("ungleich!!")
-                if (vm.rank_new >= 3 ){
-                    vm.rank_new=3;
-                } 
-                document.getElementById("new_badge").src = badge2[vm.rank_new];
-                document.getElementById("new_points").innerHTML = "Du hast einen neuen Rang!!";
-                $("#myModal3").modal();
-            }     
-
-
             if(punkteGesamt >= (point_badge[i] - vm.user.points)){
                 document.getElementById("new_badge").src = badge[i];
                 document.getElementById("new_points").innerHTML = "Sehr gut, Du hast mehr als " + point_badge[i] + " Punkte erreicht!!!";
                 i=i+1
                 $("#myModal3").modal();
             }
-            
-            vm.rank_old = meanData.getRank(vm.user,vm.users)
-
             //$location.path('/account');
           })
           .catch(function (e) {
