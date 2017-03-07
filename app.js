@@ -18,10 +18,9 @@ const restify = require('restify'),
   favicon = require('serve-favicon'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
-  bodyParser = require('body-parser'),
-// [SH] Require Passport
-  passport = require('passport');
-  require('./lib/passport');
+  bodyParser = require('body-parser');
+
+
   
 
 
@@ -85,7 +84,8 @@ server.use(restify.fullResponse());
 server.use(restify.queryParser());
 server.use(restify.jsonBodyParser());
 server.pre(restify.pre.sanitizePath());
-server.use(passport.initialize());
+
+
 
 // attach Routes
 routes(server);
