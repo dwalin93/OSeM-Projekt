@@ -1,5 +1,5 @@
-<div class="container">
-    <div class="row">
+<div class="container-fluid">
+  <div class="row">
         <br>
         <br>
         <br>
@@ -10,7 +10,9 @@
                 <img id="image" ng-hide="(vm.user.image === null)" ng-src="{{ (vm.user.image && vm.user.image != '') && 'userimages/'+vm.user.image || 'images/Download.jpg' }}" alt="Image for {{ vm.user.firstname }}">
             </div>
         </div>
-        <div class="col-xs-7" style="padding-left:5em;">
+        <div class="col-xs-9" >
+
+        <div class="col-xs-6" style="padding-left:3em;">
             <br>
             <h4 style="font-weight: bold;">Profilinfos:</h4>
             <div class=" col-md-9 col-lg-9 ">
@@ -52,21 +54,30 @@
                 </table>
             </div>
         </div>
-        <div class="col-xs-1" style="padding-right: 10em"> <!-- Persönliche Daten  -->
-            <br>
-            <br>
+
+        <div class="col-xs-6" style="padding-left: 5em; padding-right: 5em"> <!-- Persönliche Daten  -->
+            <div class="row"> <br><br><br> </div>
+
+            
+            <div class="row" style="text-align: center">
             <a class="btn btn-primary" role="button" href="/profile">{{'Profil bearbeiten' | translate}}</a>
-            <br>
-            <br>
+                <br>
+                <br>
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">{{'Erreichbare Auszeichnungen' | translate}}</button>
          
-            <br>
+            </div>
         </div>
-        <div class="col-xs-3" style="padding-left:5em;">
-            <br>
+        </div>
+        </div>
+    <div class="row">
+    <br>
+    </div>     
+    <div class="row">
+          <div class="col-xs-7" style="margin-left:3em ; margin-right:3em">
+
+        <div class="col-xs-4" style="padding-right:6em" >
             <h4 style="font-weight: bold;">Allgemeine Auszeichnungen:</h4>
-            <div class=" col-md-6 col-lg-6 ">
-                <table class="table table-user-information">
+                <table class="table table-user-information" style="text-align: center">
                     <tbody>
                         <tr ng-show="(vm.AnzahlTage <= 7)">
                             <td>Welcome
@@ -150,16 +161,14 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="col-xs-3" style="padding-left:5em;">
-            <br>
+        <div class="col-xs-4" style="padding-left:6em" >
             <h4 style="font-weight: bold;" ng-show="(vm.user.points >= 0 && vm.user.points < 100)">Game:</h4>
             <h4 style="font-weight: bold;" ng-show="(vm.user.points > 100)">Game Auszeichnungen:</h4>
-            <div class=" col-md-6 col-lg-6 " ng-show="(vm.user.points >= 0)">
-                <table class="table table-user-information">
+            
+                <table class="table table-user-information" style="text-align: center" ng-show="(vm.user.points >= 0)">
                     <tbody>
                         <tr ng-show="(vm.user.points < 200)">
-                            <td> <u>LETS GO!</u> <br> Play the <strong>new</strong> <a class="link" href="/game">Game</a>!!
+                            <td> <u>LETS GO!</u> <br> Play the <strong>new</strong> <a class="link" href="/game"> Game </a>!! <br>
                                 <img height="90" width="90" src='images/play_now.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
@@ -239,8 +248,8 @@
                 </table>
         
     
-            </div>
         </div>
+    </div>
     </div>
     
     <div id="myModal" class="modal fade" role="dialog">
