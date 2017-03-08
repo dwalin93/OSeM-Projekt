@@ -4,20 +4,15 @@ angular.module('openSenseMapApp')
   .controller('HeaderCtrl', ['$scope', '$rootScope', '$translate','$http',  'authentication','OpenSenseBoxAPI', 'meanData', 'FilterActiveService', 'amMoment', 'tmhDynamicLocale', 'OpenSenseMapData', '$state', 'leafletData', function ($scope, $rootScope, $translate, $http,authentication, meanData, OpenSenseBoxAPI,  FilterActiveService, amMoment, tmhDynamicLocale, OpenSenseMapData, $state, leafletData) {
       
   	$scope.osemapi = OpenSenseBoxAPI;
-
-      
-                 
-
+    
     $scope.isLoggedIn = authentication.isLoggedIn();
       if($scope.isLoggedIn == false){
-          console.log("Ausgeloggt")
           document.getElementById('profile').style.display='none'
-    document.getElementById('navlogin').style.display='block'
-
-
-      }else{  console.log("Eingeloggt")
-           document.getElementById('profile').style.display='block'
-    document.getElementById('navlogin').style.display='none'}
+          document.getElementById('navlogin').style.display='block'
+          }else{  
+              document.getElementById('profile').style.display='block'
+              document.getElementById('navlogin').style.display='none'
+          }
   
       
       

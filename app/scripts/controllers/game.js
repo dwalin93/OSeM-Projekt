@@ -190,17 +190,13 @@
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
           }).addTo(mymap);
-            
           ok.remove();
           repeat.addTo(mymap);
-            
           counter++;
           score();
-          //ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
-     //     console.log(pointA, pointB);
-          firstpolyline = new L.Polyline(pointList, {
+            firstpolyline = new L.Polyline(pointList, {
             color: 'red',
             weight: 3,
             opacity: 0.5,
@@ -211,14 +207,13 @@
           mymap.fitBounds(firstpolyline.getBounds());
             
         var poplatlon = [(pointA[0]+pointB[0])/2,(pointA[1]+pointB[1])/2]
-      //      console.log(poplatlon)
         popupergebnis = L.popup()
             .setLatLng(poplatlon)
-            .setContent("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt)
+            .setContent("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt + ". <br>Die Entfernung zur Box beträgt:" + $scope.distance + "km.")
             .addTo(mymap);  
             
             
-        } else {
+        } /*else {
           mymap.removeLayer(ergebnis);
           mymap.removeLayer(firstpolyline);
           ergebnis = L.marker([latbox, longbox], {
@@ -239,7 +234,7 @@
           firstpolyline.addTo(mymap);
           mymap.fitBounds(firstpolyline.getBounds());
         }
-
+*/
       });
 
       //TO-DO neue Daten geladen Nachricht  + addieren der Punkte + speichern der Punkte
@@ -273,18 +268,15 @@
         mymap.removeLayer(repeat);
         mymap.removeLayer(firstpolyline);
       };
-            vm.test=true;
-
+            
       function gameBox(gameBoxId, $http) {
+          vm.test=true;
+
         $http({
           method: "GET",
           url: "https://api.opensensemap.org/boxes/" + gameBoxId
         }).then(function mySucces(response) {
 
-          /*if abfrage wenn das datum "kleiner" als 11.11.16 ist dann soll er nochmal eine box
-           suchen, oder beim fall eines undefined,
-           TO-DO indoor boxen auschließen
-           */
           if (response.data.sensors === undefined ||
             response.data.sensors[0].hasOwnProperty("lastMeasurement") == false ||
             response.data.sensors[0].lastMeasurement == null ||
@@ -292,13 +284,14 @@
             response.data.exposure =="indoor"||
             response.data.sensors.length<3
           ) {
+            console.log("box passt nicht")
             randomize(boxId, $http);              
           } else {
-              vm.test=false;
+            vm.test=false;
             console.log("sucess");
-
-
-            //übergebene Koordinaten für clickevent zur Berechnung
+              
+              //übergebene Koordinaten für clickevent zur Berechnung
+              
             latbox = response.data.loc[0].geometry.coordinates[1];
             longbox = response.data.loc[0].geometry.coordinates[0];
             var sensors = [];
@@ -306,7 +299,7 @@
             var sensors2 = [];
               
               
-              console.log(sensors)
+              //console.log(sensors)
 
               var d = 3;
               var p = 0;
@@ -327,7 +320,7 @@
               if(sensors1.length !== response.data.sensors.length){
               for (var iii = 0; iii<sensors1.length; iii++){
                   if (sensors1[iii]==undefined){
-                      console.log("NEU GEORDNET!!!S");
+                      //console.log("NEU GEORDNET!!!S");
                   }else{
                       sensors2[p] = sensors1[iii];
                       p++                      

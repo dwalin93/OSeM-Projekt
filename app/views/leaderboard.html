@@ -10,7 +10,7 @@
       </tr>
       </thead>
       <tfoot>
-      <tr ng-repeat="user in vm.users | orderBy : '-points'" ng-style="vm.user.username === user.username ? {'background-color': 'lightgreen'} : {}">
+      <tr ng-repeat="user in vm.users" ng-style="vm.user.username === user.username ? {'background-color': 'lightgreen'} : {}">
         <td>{{$index +1}}</td>
         <td>{{user.username}}</td>
         <td>{{user.points}}</td>

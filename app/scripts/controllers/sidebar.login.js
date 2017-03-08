@@ -8,7 +8,6 @@ angular.module('openSenseMapApp')
 document.getElementById('profile').style.display='none'
 
   function loginCtrl($location, authentication) {
-    console.log("hallo");
     var vm = this;
 
     vm.credentials = {

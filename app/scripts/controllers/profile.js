@@ -33,7 +33,7 @@
            alert('Zum ändern MUSST Du dein Passwort eintragen');
           //alert("Zum ändern MUSST Du dein Passwort eintragen");
       }
-      else  if (vm.user.password !== vm.user.password2) {
+      else if (vm.user.password !== vm.user.password2) {
         alert("Passwörter stimmen nicht überein!");
       }
           else {
@@ -55,9 +55,9 @@
     function deleteUser() {
         
         var r = confirm("Hallo!\nWollen sie Ihren Account wirklich löschen?");
-            if (r !== true) {
-               location.href = "/"
-            }
+            if (r == false) {
+               location.href = "/account"
+            }else{
         
         
       userService.deleteUsers(vm.user)
@@ -69,6 +69,7 @@
         .catch(function (e) {
           console.log(e);
         });
+            }
     }
 
     function saveImage() {

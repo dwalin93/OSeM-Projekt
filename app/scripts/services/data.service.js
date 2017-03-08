@@ -47,18 +47,6 @@
       return correctDate;
         }
 
-
-      
-      function getRank(user,users){
-          getAllProfiles();
-          getProfile();
-          for (var d = 0; d < users.length; d++) {
-              if(user.username == users[d].username){
-                  return d;
-              }
-          }
-      }
-      
       
     var getAllProfiles = function () {
       return $http.get('/api/allProfiles');
@@ -77,8 +65,7 @@
       countPoints : countPoints,
       getAllProfiles : getAllProfiles,
        renderDate: renderDate,
-      renderDate2: renderDate2,
-      getRank: getRank
+      renderDate2: renderDate2
     };
   }
 
