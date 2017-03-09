@@ -167,28 +167,29 @@
             
                 <table class="table table-user-information" style="text-align: center" ng-show="(vm.user.points >= 0)">
                     <tbody>
-                        <tr ng-show="(vm.user.points < 200)">
-                            <td> <u>LETS GO!</u> <br> Play the <strong>new</strong> <a class="link" href="/game"> Game </a>!! <br>
+                        <tr ng-show="(vm.user.points < 200)" >
+                            <td><a class="link" href="/game"> <u>LETS GO!</u> <br> Play the <strong>new</strong><br> Game !! <br>
                                 <img height="90" width="90" src='images/play_now.png' alt="Badge for {{ vm.user.firstname }}">
+                                </a>
                             </td>
                         </tr>
-                        <tr ng-show="(vm.users[0].username == vm.user.username)">
+                        <tr ng-show="(vm.users[0].username == vm.user.username && vm.user.points != 0 )">
                             <td> 
                                 <img height="90" width="90" src='images/first.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
 
-                        <tr ng-show="(vm.users[1].username == vm.user.username)">
+                        <tr ng-show="(vm.users[1].username == vm.user.username && vm.user.points != 0)">
                             <td> 
                                 <img height="90" width="90" src='images/second.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.users[2].username == vm.user.username)">
+                        <tr ng-show="(vm.users[2].username == vm.user.username && vm.user.points != 0)">
                             <td> 
                                 <img height="90" width="90" src='images/third.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="( vm.users[3].username == vm.user.username ||vm.users[4].username == vm.user.username ||vm.users[5].username == vm.user.username ||vm.users[6].username == vm.user.username ||vm.users[7].username == vm.user.username ||vm.users[8].username == vm.user.username ||vm.users[9].username == vm.user.username)">
+                        <tr ng-show="( vm.users[3].username == vm.user.username ||vm.users[4].username == vm.user.username ||vm.users[5].username == vm.user.username ||vm.users[6].username == vm.user.username ||vm.users[7].username == vm.user.username ||vm.users[8].username == vm.user.username ||vm.users[9].username == vm.user.username) && vm.user.points != 0">
                             <td> 
                                 <img height="90" width="90" src='images/top_ten.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>

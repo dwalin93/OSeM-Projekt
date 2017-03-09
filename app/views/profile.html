@@ -19,13 +19,13 @@
       <label for="username">Username</label>
       <input type="text" id="username" class="form-control" ng-model="vm.user.username" required />
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error' : !vm.user.password ||vm.user.password2 !=vm.user.password}">
       <label for="password">Password *</label>
-      <input type="password" id="password" class="form-control" ng-model="vm.user.password"/>
+      <input type="password" id="password" class="form-control" ng-model="vm.user.password" required/>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error' : !vm.user.password2 ||vm.user.password2 !=vm.user.password}">
       <label for="password2">Password REPEAT *</label>
-      <input type="password" id="password2" class="form-control" ng-model="vm.user.password2"/>
+      <input type="password" id="password2" class="form-control" ng-model="vm.user.password2" required/>
     </div>
     Optional:
     <div class="form-group">
@@ -38,12 +38,30 @@
     </div>
     <div class="form-group">
       <button class="btn btn-primary" ng-click="vm.saveUser()">Save</button>
+    </div>
+      <uib-accordion close-others="oneAtATime">
+    <div uib-accordion-group class="panel-danger" heading="Delete account">
+      <p>Please, to delete your account, click the button below</p>
       <button class="btn btn-danger" ng-click="vm.deleteUser()">Delete</button>
     </div>
+    </uib-accordion>
+
   </form>
-      <h3>{{'EDIT_IMAGE'|translate}}</h3>
-      {{'EDIT_IMAGEINFO'|translate}}
-      <div flow-init="{singleFile:true}" flow-file-added="flowFileAdded($file,$event)" flow-drop>
+      
+
+    
+    <uib-accordion>
+
+<div uib-accordion-group class="panel-default" is-open="status.open">
+      <uib-accordion-heading>
+          
+          
+        <h3>{{'EDIT_IMAGE'|translate}}</h3>
+      {{'EDIT_IMAGEINFO'|translate}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+          
+          
+      </uib-accordion-heading>
+<div flow-init="{singleFile:true}" flow-file-added="flowFileAdded($file,$event)" flow-drop>
         <div class="thumbnail">
           <img ng-src="/userimages/{{vm.user.image}}" ng-hide="$flow.files.length || !vm.user.image" alt="Image for {{ vm.user.firstname || 'Filter' }}">
           <img id="flowUploadImage" flow-img="$flow.files[0]">
@@ -55,7 +73,16 @@
             <br>
             <br>
         </div>
+      </div>    </div>
+  </uib-accordion>
+    <br>
+    <br>
       </div>
-</div>
+      <br>
+      <br>
     </div>
+</div>
+
+<div>
+    
 </div>

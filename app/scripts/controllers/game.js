@@ -136,21 +136,61 @@
         $scope.distance = (position.distanceTo([latbox, longbox]) / 1000).toFixed(2)
         //console.log("l33337 Test  " + $scope.distance);
         // punkte einteilung
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 50) {
-          punkte = Number(100);
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 15000) {
+          punkte = Number(0);
           punkteGesamt =  punkteGesamt + punkte;
         }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) <= 150 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 50) {
-          punkte = Number(50);
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) <= 15000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 10000) {
+          oberGrenze = 15000;
+          unterGrenze = 10000;
+          maxPunkte = 500;
+          minPunkte = 0;
+          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
           punkteGesamt =  punkteGesamt  + punkte;
         }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 250 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 150) {
-          punkte = Number(10);
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 10000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 5000) {
+          oberGrenze = 10000;
+          unterGrenze = 5000;
+          maxPunkte = 1000;
+          minPunkte = 500;
+          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
           punkteGesamt =  punkteGesamt  + punkte;
         }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 250) {
-          punkte = Number(1);
-          punkteGesamt = punkteGesamt  + punkte;
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 5000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 2500)  {
+          oberGrenze = 5000;
+          unterGrenze = 2500;
+          maxPunkte = 2000;
+          minPunkte = 1000;
+          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
+          punkteGesamt =  punkteGesamt  + punkte;
+        }
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 2500 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 1000)  {
+          oberGrenze = 2500;
+          unterGrenze = 1000;
+          maxPunkte = 3500;
+          minPunkte = 2000;
+          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
+          punkteGesamt =  punkteGesamt  + punkte;
+        }
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 1000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 500)  {
+          oberGrenze = 1000;
+          unterGrenze = 500;
+          maxPunkte = 6000;
+          minPunkte = 3500;
+          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
+          punkteGesamt =  punkteGesamt  + punkte;
+        }
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 500 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 50)  {
+          oberGrenze = 500;
+          unterGrenze = 50;
+          maxPunkte = 9999;
+          minPunkte = 6000;
+          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
+          punkteGesamt =  punkteGesamt  + punkte;
+        }
+        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 50)  {
+          punkte = Number(10000);
+          punkteGesamt =  punkteGesamt  + punkte;
         }
       };
 
