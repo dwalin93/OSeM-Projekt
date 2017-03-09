@@ -18,7 +18,7 @@
                location.href = "/"
             }
       }
-      
+
    // document.getElementById('profile').style.display='block'
    // document.getElementById('navlogin').style.display='none'
 
@@ -30,7 +30,7 @@
     var point_badge=[100, 200, 500, 1000, 2500, 5000, 10000, 15000 , 20000, 50000];
     var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
       var i = 0;
-      
+
           meanData.getProfile()
               .success(function (data) {
               vm.user = data;
@@ -43,7 +43,7 @@
               .error(function (e) {
               console.log(e);
           });
-      
+
       function alleProfile(){
       meanData.getAllProfiles()
                   .success(function (data) {
@@ -52,22 +52,22 @@
                   .error(function (e) {
                   console.log(e);
               });
-      
+
       }
-      
+
       alleProfile();
-      
+
       $(document).ready(function(){
           $("#myBtn").click(function(){
               alleProfile();
               $("#myModal2").modal();
           });
       });
-      
-      
-      //ende Leaderboard 
-      
-      
+
+
+      //ende Leaderboard
+
+
     var firstpolyline;
       var ok;
       var repeat;
@@ -82,6 +82,11 @@
     var popup = L.popup();
     var counter = 0;
     var boxDistance;
+    var oberGrenze;
+    var unterGrenze;
+    var maxPunkte;
+    var minPunkte;
+    var intervallPunkte;
     var oneHourAgo = new Date();
     oneHourAgo.setHours(oneHourAgo.getHours() - 1);
     var isoOneHourAgo = oneHourAgo.toISOString();
@@ -91,7 +96,7 @@
     $scope.box = [];
     $scope.distance = [];
     var gameBoxId = [];
-    
+
 
     var greenIcon = new L.Icon({
       iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -127,72 +132,86 @@
         $scope.myData = response.statusText;
       });
 
+//
 
 
 
-      function score() {
-        //console.log("Die Entfernung zur Sensebox beträgt: " +
-        //  (position.distanceTo([latbox, longbox]) / 1000).toFixed(2) + "Km");
-        $scope.distance = (position.distanceTo([latbox, longbox]) / 1000).toFixed(2)
-        //console.log("l33337 Test  " + $scope.distance);
-        // punkte einteilung
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 15000) {
-          punkte = Number(0);
-          punkteGesamt =  punkteGesamt + punkte;
-        }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) <= 15000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 10000) {
-          oberGrenze = 15000;
-          unterGrenze = 10000;
-          maxPunkte = 500;
-          minPunkte = 0;
-          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
-          punkteGesamt =  punkteGesamt  + punkte;
-        }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 10000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 5000) {
-          oberGrenze = 10000;
-          unterGrenze = 5000;
-          maxPunkte = 1000;
-          minPunkte = 500;
-          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
-          punkteGesamt =  punkteGesamt  + punkte;
-        }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 5000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 2500)  {
-          oberGrenze = 5000;
-          unterGrenze = 2500;
-          maxPunkte = 2000;
-          minPunkte = 1000;
-          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
-          punkteGesamt =  punkteGesamt  + punkte;
-        }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 2500 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 1000)  {
-          oberGrenze = 2500;
-          unterGrenze = 1000;
-          maxPunkte = 3500;
-          minPunkte = 2000;
-          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
-          punkteGesamt =  punkteGesamt  + punkte;
-        }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 1000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 500)  {
-          oberGrenze = 1000;
-          unterGrenze = 500;
-          maxPunkte = 6000;
-          minPunkte = 3500;
-          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
-          punkteGesamt =  punkteGesamt  + punkte;
-        }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 500 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 50)  {
-          oberGrenze = 500;
-          unterGrenze = 50;
-          maxPunkte = 9999;
-          minPunkte = 6000;
-          punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*maxPunkte).toFixed(0));
-          punkteGesamt =  punkteGesamt  + punkte;
-        }
-        if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 50)  {
-          punkte = Number(10000);
-          punkteGesamt =  punkteGesamt  + punkte;
-        }
-      };
+function score() {
+  //console.log("Die Entfernung zur Sensebox beträgt: " +
+  //  (position.distanceTo([latbox, longbox]) / 1000).toFixed(2) + "Km");
+  $scope.distance = (position.distanceTo([latbox, longbox]) / 1000).toFixed(2)
+  //console.log("l33337 Test  " + $scope.distance);
+  // punkte einteilung
+  if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) > 5000) {
+    punkte = Number(0);
+    punkteGesamt =  punkteGesamt + punkte;
+  }
+  if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) <= 5000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 2500) {
+    oberGrenze = 5000;
+    unterGrenze = 2500;
+    maxPunkte = 10;
+    minPunkte = 0;
+    intervallPunkte = maxPunkte - minPunkte;
+    punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*intervallPunkte).toFixed(0));
+    punkteGesamt =  punkteGesamt  + punkte;
+  }
+  if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 2500 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 1500) {
+    oberGrenze = 2500;
+    unterGrenze = 1500;
+    maxPunkte = 20;
+    minPunkte = 10;
+    intervallPunkte = maxPunkte - minPunkte;
+    punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*intervallPunkte).toFixed(0));;
+    punkteGesamt =  punkteGesamt  + punkte;
+  }
+  if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 1500 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 1000)  {
+    oberGrenze = 1500;
+    unterGrenze = 1000;
+    maxPunkte = 40;
+    minPunkte = 20;
+    intervallPunkte = maxPunkte - minPunkte;
+    punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*intervallPunkte).toFixed(0));
+    punkteGesamt =  punkteGesamt  + punkte;
+  }
+  if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 1000 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 500)  {
+    oberGrenze = 1000;
+    unterGrenze = 500;
+    maxPunkte = 65;
+    minPunkte = 40;
+    intervallPunkte = maxPunkte - minPunkte;
+    punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*intervallPunkte).toFixed(0));
+    punkteGesamt =  punkteGesamt  + punkte;
+  }
+  if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 500 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 200)  {
+    oberGrenze = 500;
+    unterGrenze = 200;
+    maxPunkte = 80;
+    minPunkte = 65;
+    intervallPunkte = maxPunkte - minPunkte;
+    punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*intervallPunkte).toFixed(0));
+    punkteGesamt =  punkteGesamt  + punkte;
+  }
+  if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 200 && ((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) >= 50)  {
+    oberGrenze = 200;
+    unterGrenze = 50;
+    maxPunkte = 95;
+    minPunkte = 65;
+    intervallPunkte = maxPunkte - minPunkte;
+    punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*intervallPunkte).toFixed(0));
+    punkteGesamt =  punkteGesamt  + punkte;
+  }
+  if (((position.distanceTo([latbox, longbox]) / 1000).toFixed(2)) < 50)  {
+    oberGrenze = 50;
+    unterGrenze = 0;
+    maxPunkte = 101;
+    minPunkte = 95;
+    intervallPunkte = maxPunkte - minPunkte;
+    punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*intervallPunkte).toFixed(0));
+    punkteGesamt =  punkteGesamt  + punkte;
+  }
+};
+
+
 
 
       function onMapClick(e) {
@@ -245,20 +264,20 @@
           firstpolyline.addTo(mymap);
           savePoints(punkte);
           mymap.fitBounds(firstpolyline.getBounds());
-            
+
         var poplatlon = [(pointA[0]+pointB[0])/2,(pointA[1]+pointB[1])/2]
         popupergebnis = L.popup()
             .setLatLng(poplatlon)
             .setContent("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt + ". <br>Die Entfernung zur Box beträgt:" + $scope.distance + "km.")
-            .addTo(mymap);  
-            
-            
+            .addTo(mymap);
+
+
         } /*else {
           mymap.removeLayer(ergebnis);
           mymap.removeLayer(firstpolyline);
           ergebnis = L.marker([latbox, longbox], {
             icon: greenIcon
-          }).addTo(mymap);       
+          }).addTo(mymap);
           //ergebnis.bindPopup("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, deine Gesamtpunktzahl ist " + punkteGesamt).openPopup();
           var pointA = [latbox, longbox];
           var pointList = [pointA, pointB];
@@ -286,18 +305,18 @@
         mymap.removeLayer(firstpolyline);
         repeat.remove();
         ok.remove();
-        
+
         ergebnis= null;
         randomize(boxId, $http)
 
       });
-      
-      
+
+
       mymap.on('click', onMapClick);
-      
+
       //sucht eine Randombox aus und übergibt das dann der funktion gameBox
       //übergebene boxId
-      
+
       function randomize(boxId, http) {
         var gameBoxId = boxId[Math.floor(Math.random() * boxId.length)];
         console.log('RandomBoxId: ' + gameBoxId);
@@ -308,7 +327,7 @@
         mymap.removeLayer(repeat);
         mymap.removeLayer(firstpolyline);
       };
-            
+
       function gameBox(gameBoxId, $http) {
           vm.test=true;
 
@@ -325,25 +344,25 @@
             response.data.sensors.length<3
           ) {
             console.log("box passt nicht")
-            randomize(boxId, $http);              
+            randomize(boxId, $http);
           } else {
             vm.test=false;
             console.log("sucess");
-              
+
               //übergebene Koordinaten für clickevent zur Berechnung
-              
+
             latbox = response.data.loc[0].geometry.coordinates[1];
             longbox = response.data.loc[0].geometry.coordinates[0];
             var sensors = [];
             var sensors1 = [];
             var sensors2 = [];
-              
-              
+
+
               //console.log(sensors)
 
               var d = 3;
               var p = 0;
-              
+
               for (var ii = 0 ; ii < response.data.sensors.length; ii++){
                   if (response.data.sensors[ii].title == "Temperatur" ){
                       sensors1[0]=response.data.sensors[ii];
@@ -356,23 +375,23 @@
                         d++;
                   }
               }
-              
+
               if(sensors1.length !== response.data.sensors.length){
               for (var iii = 0; iii<sensors1.length; iii++){
                   if (sensors1[iii]==undefined){
                       //console.log("NEU GEORDNET!!!S");
                   }else{
                       sensors2[p] = sensors1[iii];
-                      p++                      
+                      p++
                   }
               }
               }else{
                   sensors2=sensors1;
               }
-              
-                                
+
+
               for (var i = 0; i < sensors2.length; i++) {
-              var sensor = {};                
+              var sensor = {};
               sensor.title = sensors2[i].title;
               sensor.value = sensors2[i].lastMeasurement.value;
               sensor.unit = sensors2[i].unit;
@@ -384,10 +403,10 @@
               var hours = measurementDate.getUTCHours();
               var minutes = measurementDate.getUTCMinutes();
                 if (minutes < 10){
-                    minutes = "0" + minutes; 
+                    minutes = "0" + minutes;
                 }
                 if (hours < 10){
-                    hours = "0" + hours; 
+                    hours = "0" + hours;
                 }
               var fullDate = day +'.'+ month +'.'+ year + ' um: ' + hours + ':' + minutes + ' (UTC)';
               sensor.lastMeasurement = fullDate;
@@ -406,12 +425,12 @@
         });
       }
 
-      
-          
-      
+
+
+
 
       function savePoints(points){
-            
+
           meanData.countPoints(points)
           .success(function () {
             if(punkteGesamt >= (point_badge[i] - vm.user.points)){
@@ -427,7 +446,7 @@
           });
       };
   };
-    
-    
-    
+
+
+
 })();
