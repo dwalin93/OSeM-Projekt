@@ -1,14 +1,16 @@
 <div class="container" style="padding-top: 75px">
     <div class="col-md-8">
       <h2>Finde den passenden Ort zu den Daten
-         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">How to play</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+          <span class="glyphicon glyphicon-question-sign"></span> How to play</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+            <span class="glyphicon glyphicon-king"></span> Top 10</button>
+           <a role="button" class="btn btn-success" href="/leaderboard"><span class="glyphicon glyphicon-list"></span> Leaderboard</a>
           </h2>
-        
+
       <div id="mapid" style="height: 550px">{{map}}</div>
       <br>
       <br>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" id="myBtn">The Best <big>10</big></button>
-        <button type="button" class="btn btn-info btn-lg" ui-sref="leaderboard" >Show Leaderboard</button>
       </div>
 
       <!-- Example row of columns -->
@@ -23,7 +25,7 @@
               </div>
           <!--
           <!-- Panels with data -->
-              
+
               <div class="panel panel-default" ng-repeat="b in box" >
                   <div class="panel-heading">{{b.title}}</div>
                   <div class="panel-body">{{b.value}} {{b.unit}}
@@ -34,16 +36,14 @@
       </div>
 
     <!-- /container -->
-    
-    
-    
+
+
+
   <hr>
   <footer>
     <p>&copy; 2016 Höltgen-Qiu Inc.</p>
   </footer>
 </div>
-
-
 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -111,14 +111,14 @@
                         </tr>
                     </tfoot>
                 </table>
-            </div>     
+            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>   
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-        
-          
+
+
 <!-- /container -->
 <!-- Bootstrap core JavaScript
