@@ -29,6 +29,8 @@
     vm.user = {};
     var point_badge=[100, 200, 500, 1000, 2500, 5000, 10000, 15000 , 20000, 50000];
     var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
+      
+      
       var i = 0;
       
           meanData.getProfile()
@@ -74,6 +76,11 @@
     var popupergebnis;
     var latbox;
     var punkte = 0;
+    var oberGrenze = 0;
+    var unterGrenze = 0;
+    var maxPunkte = 0;
+    var minPunkte = 0;
+    var intervallPunkte = 0;
     vm.pkt = 0;
     var punkteGesamt = 0;
     var longbox;
@@ -426,6 +433,58 @@
             console.log(e);
           });
       };
+      
+      
+      
+      
+      
+  $scope.noWrapSlides = false;
+  $scope.active = 0;
+  var slides = $scope.slides = [];
+  var currIndex = 0;
+
+  $scope.addSlide = function() {
+    var newWidth = 700 + slides.length + 1; //Größe anpassen
+    slides.push({
+      image: badge[i], 
+        //hier neues array für die bilder
+      text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 6],
+        //hier neues array für die Texte
+      id: currIndex++
+    });
+  };
+
+  $scope.randomize = function() {
+    var indexes = generateIndexesArray();
+    assignNewIndexesToSlides(indexes);
+  };
+
+  for (var i = 1; i < badge.length; i++) {//hier neues array
+    $scope.addSlide();
+  }
+
+  // Randomize logic below
+
+  function assignNewIndexesToSlides(indexes) {
+    for (var i = 0, l = slides.length; i < l; i++) {
+      slides[i].id = indexes.pop();
+    }
+  }
+
+  function generateIndexesArray() {
+    var indexes = [];
+    for (var i = 0; i < currIndex; ++i) {
+      indexes[i] = i;
+    }
+    return shuffle(indexes);
+  }
+
+
+      
+      
+      
+      
+      
   };
     
     

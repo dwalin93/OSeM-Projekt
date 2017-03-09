@@ -60,6 +60,23 @@
                 5. If you don't want to play anymore just leave the site. Your points will be saved automatically
                 </p>
                 </div>
+            
+            <div >
+  <div style="height: 700px">
+    <div uib-carousel active="active" no-wrap="noWrapSlides">
+      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+        <img ng-src="{{slide.image}}" style="margin:auto;" height="600" width="600" >
+        <div class="carousel-caption">
+          <h4>Slide {{slide.id}}</h4>
+          <p>{{slide.text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+            
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
