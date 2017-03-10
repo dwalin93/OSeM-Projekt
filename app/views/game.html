@@ -1,4 +1,4 @@
-<div class="container" style="padding-top: 75px">
+<div class="container" style="padding-top: 45px">
     <div class="col-md-8">
       <h2>Finde den passenden Ort zu den Daten
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
@@ -28,7 +28,7 @@
           <!--
           <!-- Panels with data -->
 
-              <div class="panel panel-default" ng-repeat="b in box" >
+              <div class="panel panel-default" ng-repeat="b in box">
                   <div class="panel-heading">{{b.title}}</div>
                   <div class="panel-body">{{b.value}} {{b.unit}}
               <p>gemessen am: {{b.lastMeasurement}}</p>
@@ -62,23 +62,6 @@
                 5. If you don't want to play anymore just leave the site. Your points will be saved Fking
                 </p>
                 </div>
-            
-            <div >
-  <div style="height: 700px">
-    <div uib-carousel active="active" no-wrap="noWrapSlides">
-      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-        <img ng-src="{{slide.image}}" style="margin:auto;" height="600" width="600" >
-        <div class="carousel-caption">
-          <h4>Slide {{slide.id}}</h4>
-          <p>{{slide.text}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-            
-            
-            
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
