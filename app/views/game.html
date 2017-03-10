@@ -10,6 +10,8 @@
 
       <div id="mapid" style="height: 550px">{{map}}</div>
       <br>
+        <p id="Ziel"> Ich bin Hier das Ziel </p>
+        <p id="Auswahl"> Ich bin Hier deine Auswahl </p>
       <br>
       </div>
 
@@ -57,7 +59,7 @@
                 2. Click the Tick Button to confirm your choice<br>
                 3. Press the Reload Button to load a new Box<br>
                 4. To see the leaderboard, just cklick the link below the map<br>
-                5. If you don't want to play anymore just leave the site. Your points will be saved automatically
+                5. If you don't want to play anymore just leave the site. Your points will be saved Fking
                 </p>
                 </div>
             
@@ -121,7 +123,7 @@
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr ng-repeat="user in vm.users | orderBy : '-points' | limitTo: 10" ng-style="vm.user.username ===     user.username ? {'background-color': 'lightgreen'} : {}">
+                        <tr ng-repeat="user in vm.users | limitTo: 10" ng-style="vm.user.username ===     user.username ? {'background-color': 'lightgreen'} : {}">
                             <td>{{$index +1}}</td>
                             <td>{{user.username}}</td>
                             <td>{{user.points}}</td>

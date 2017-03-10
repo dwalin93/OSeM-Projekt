@@ -31,14 +31,14 @@
     var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
       
       
-      var i = 0;
+      var p = 0;
 
           meanData.getProfile()
               .success(function (data) {
               vm.user = data;
               vm.user.points=vm.user.points;
-            while(vm.user.points > point_badge[i]){
-                i++;
+            while(vm.user.points > point_badge[p]){
+                p++;
                 //console.log(i);
             };
           })
@@ -73,6 +73,7 @@
     var firstpolyline;
       var ok;
       var repeat;
+      var button_repeat=false;
     var popupergebnis;
     var latbox;
     var punkte = 0;
@@ -222,9 +223,11 @@ function score() {
 
 
       function onMapClick(e) {
-        if (marker == null) {
-
+        if (marker == null && button_repeat==false) {
+            
+            
          ok.addTo(mymap);
+            
           marker = new L.marker(e.latlng, {
             draggable: false
           });
@@ -232,7 +235,8 @@ function score() {
           position = marker.getLatLng();
           pointB = [position.lat, position.lng];
         } else {
-            ok.addTo(mymap);
+            if(button_repeat==false){
+         ok.addTo(mymap);
           mymap.removeLayer(marker);
           marker = null;
           marker = new L.marker(e.latlng, {
@@ -241,6 +245,7 @@ function score() {
           position = marker.getLatLng();
           pointB = [position.lat, position.lng];
           mymap.addLayer(marker);
+            }
         }
       };
       mymap.on('click', onMapClick);
@@ -258,6 +263,7 @@ function score() {
           }).addTo(mymap);
           ok.remove();
           repeat.addTo(mymap);
+            button_repeat=true;
           counter++;
           score();
           var pointA = [latbox, longbox];
@@ -279,6 +285,54 @@ function score() {
             .addTo(mymap);
 
 
+            var address = pointList[0];
+            console.log(address)
+            $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+address+'&zoom=18&addressdetails=1' , function(data){ 
+                var landkreis = data[0].address.county;
+                var city = data[0].address.city;
+                var bundesland = data[0].address.state;
+                var land = data[0].address.country;
+                if (city !== undefined){
+                    city = city + " in "
+                }else{city=""}
+                if (landkreis == undefined){
+                    landkreis=""
+                }else( landkreis = landkreis + " in ")
+                
+                if (bundesland == undefined){
+                    bundesland=""
+                }if (land == undefined){
+                    land=""
+                }
+            document.getElementById("Ziel").innerHTML =city+ landkreis  + bundesland + " ("+ land +")" ;
+
+    });
+            var address = pointList[1]
+            $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+address+'&zoom=18&addressdetails=1' , function(data){
+            var landkreis = data[0].address.county;
+                var city = data[0].address.city;
+                var bundesland = data[0].address.state;
+                var land = data[0].address.country;
+                if (city !== undefined){
+                    city = city + " in "
+                }else{city=""}
+                if (landkreis == undefined || data[0].address.county == data[0].address.city){
+                    landkreis=""
+                }else{
+             landkreis = landkreis + " in "}
+                
+                if (bundesland == undefined){
+                    bundesland=""
+                }if (land == undefined){
+                    land=""
+                }
+                console.log(data)
+            document.getElementById("Auswahl").innerHTML =city+ landkreis  + bundesland + " ("+ land +")" ;
+
+    });
+            
+            
+            
         } /*else {
           mymap.removeLayer(ergebnis);
           mymap.removeLayer(firstpolyline);
@@ -305,14 +359,18 @@ function score() {
 
       //TO-DO neue Daten geladen Nachricht  + addieren der Punkte + speichern der Punkte
     repeat = new L.easyButton('fa-repeat', function() {
+        
+        
         mymap.setView([51.4, 9], 2);
         mymap.removeLayer(marker);
         mymap.removeLayer(popupergebnis);
         mymap.removeLayer(ergebnis);
         mymap.removeLayer(firstpolyline);
         repeat.remove();
+        button_repeat = false;
         ok.remove();
-
+        var button_ok = false;
+        console.log(button_ok);
         ergebnis= null;
         randomize(boxId, $http)
 
@@ -350,7 +408,6 @@ function score() {
             response.data.exposure =="indoor"||
             response.data.sensors.length<3
           ) {
-            console.log("box passt nicht")
             randomize(boxId, $http);
           } else {
             vm.test=false;
@@ -440,10 +497,10 @@ function score() {
 
           meanData.countPoints(points)
           .success(function () {
-            if(punkteGesamt >= (point_badge[i] - vm.user.points)){
-                document.getElementById("new_badge").src = badge[i];
+            if(punkteGesamt >= (point_badge[p] - vm.user.points)){
+                document.getElementById("new_badge").src = badge[p];
                 document.getElementById("new_points").innerHTML = "Sehr gut, Du hast mehr als " + point_badge[i] + " Punkte erreicht!!!";
-                i=i+1
+                p=p+p
                 $("#myModal3").modal();
             }
             //$location.path('/account');
@@ -502,6 +559,26 @@ function score() {
       
       
       
+      
+      var legend = L.control({position: 'bottomleft'});
+      
+      legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = ["Auswahl", "Ziel"],
+        labels = ['https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png','https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png'];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            grades[i] + (" <img src="+ labels[i] +" height='41' width='25'>") +'<br>';
+    }
+
+    return div;
+};
+      
+      legend.addTo(mymap);
+ 
       
       
   };
