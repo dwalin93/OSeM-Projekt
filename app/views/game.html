@@ -3,15 +3,15 @@
       <h2>Finde den passenden Ort zu den Daten
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
           <span class="glyphicon glyphicon-question-sign"></span> How to play</button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="myBtn">
             <span class="glyphicon glyphicon-king"></span> Top 10</button>
            <a role="button" class="btn btn-success" href="/leaderboard"><span class="glyphicon glyphicon-list"></span> Leaderboard</a>
           </h2>
 
       <div id="mapid" style="height: 550px">{{map}}</div>
       <br>
-        <p id="Ziel"> Ich bin Hier das Ziel </p>
-        <p id="Auswahl"> Ich bin Hier deine Auswahl </p>
+        <p id="Auswahl" style="color:blue"></p>
+        <p id="Ziel" style="color:green"></p>
       <br>
       </div>
 
@@ -62,6 +62,24 @@
                 5. If you don't want to play anymore just leave the site. Your points will be saved Fking
                 </p>
                 </div>
+            
+            
+            <div >
+   <div style="height: 700px">
+     <div uib-carousel active="active" no-wrap="noWrapSlides">
+       <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+         <img ng-src="{{slide.image}}" style="margin:auto;" height="600" width="600" >
+         <div class="carousel-caption">
+           <h4>Slide {{slide.id}}</h4>
+           <p>{{slide.text}}</p>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+            
+            
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>

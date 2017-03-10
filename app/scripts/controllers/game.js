@@ -55,7 +55,7 @@
                   console.log(e);
               });
 
-      }
+      };
 
       alleProfile();
 
@@ -254,6 +254,9 @@ function score() {
       //console.log("heiiiide " + boxDistance);
       //boxDistance ist undefined
 
+      
+      
+      
 
       //TO-DO
      ok = new L.easyButton('glyphicon-ok', function() {
@@ -277,62 +280,16 @@ function score() {
           firstpolyline.addTo(mymap);
           savePoints(punkte);
           mymap.fitBounds(firstpolyline.getBounds());
+            console.log(firstpolyline.getBounds())
 
         var poplatlon = [(pointA[0]+pointB[0])/2,(pointA[1]+pointB[1])/2]
-        popupergebnis = L.popup()
+            popupergebnis = L.popup()
             .setLatLng(poplatlon)
             .setContent("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt + ". <br>Die Entfernung zur Box beträgt:" + $scope.distance + "km.")
             .addTo(mymap);
 
-
-            var address = pointList[0];
-            console.log(address)
-            $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+address+'&zoom=18&addressdetails=1' , function(data){ 
-                var landkreis = data[0].address.county;
-                var city = data[0].address.city;
-                var bundesland = data[0].address.state;
-                var land = data[0].address.country;
-                if (city !== undefined){
-                    city = city + " in "
-                }else{city=""}
-                if (landkreis == undefined){
-                    landkreis=""
-                }else( landkreis = landkreis + " in ")
-                
-                if (bundesland == undefined){
-                    bundesland=""
-                }if (land == undefined){
-                    land=""
-                }
-            document.getElementById("Ziel").innerHTML =city+ landkreis  + bundesland + " ("+ land +")" ;
-
-    });
-            var address = pointList[1]
-            $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+address+'&zoom=18&addressdetails=1' , function(data){
-            var landkreis = data[0].address.county;
-                var city = data[0].address.city;
-                var bundesland = data[0].address.state;
-                var land = data[0].address.country;
-                if (city !== undefined){
-                    city = city + " in "
-                }else{city=""}
-                if (landkreis == undefined || data[0].address.county == data[0].address.city){
-                    landkreis=""
-                }else{
-             landkreis = landkreis + " in "}
-                
-                if (bundesland == undefined){
-                    bundesland=""
-                }if (land == undefined){
-                    land=""
-                }
-                console.log(data)
-            document.getElementById("Auswahl").innerHTML =city+ landkreis  + bundesland + " ("+ land +")" ;
-
-    });
-            
-            
-            
+            SearchPlace(pointList[0], "Ziel");
+            SearchPlace(pointList[1], "Auswahl");
         } /*else {
           mymap.removeLayer(ergebnis);
           mymap.removeLayer(firstpolyline);
@@ -356,11 +313,37 @@ function score() {
         }
 */
       });
+      
+      
+      var SearchPlace= function(coordinates, ziel){
+          $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+coordinates+'&zoom=18&addressdetails=1' , function(data){
+              var Ort =  randerPlace(data, ziel);
+          })};
+         
+      var randerPlace = function (data, ziel){
+                var landkreis = data[0].address.county;
+                var city = data[0].address.city;
+                var bundesland = data[0].address.state;
+                var land = data[0].address.country;
+                if (city !== undefined){
+                    city = city + " in "
+                }else{city=""}
+                if (landkreis == undefined || data[0].address.county == data[0].address.city){
+                    landkreis=""
+                }else{
+                    landkreis = landkreis + " in "}
+                
+                if (bundesland == undefined || data[0].address.state == data[0].address.city ){
+                    bundesland=""
+                }if (land == undefined){
+                    land=""
+                }      
+            document.getElementById(ziel).innerHTML = ( city + landkreis  + bundesland + " ("+ land +")" );
+      };
+                
 
       //TO-DO neue Daten geladen Nachricht  + addieren der Punkte + speichern der Punkte
     repeat = new L.easyButton('fa-repeat', function() {
-        
-        
         mymap.setView([51.4, 9], 2);
         mymap.removeLayer(marker);
         mymap.removeLayer(popupergebnis);
@@ -369,12 +352,9 @@ function score() {
         repeat.remove();
         button_repeat = false;
         ok.remove();
-        var button_ok = false;
-        console.log(button_ok);
         ergebnis= null;
         randomize(boxId, $http)
-
-      });
+    });
 
 
       mymap.on('click', onMapClick);
