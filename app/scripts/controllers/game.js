@@ -29,6 +29,8 @@
     vm.user = {};
     var point_badge=[100, 200, 500, 1000, 2500, 5000, 10000, 15000 , 20000, 50000];
     var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
+    var tutorial = ["images/tutorial-1.png","images/tutorial-2.png"];
+      
       
       
         var p = 0;
@@ -482,17 +484,18 @@ function score() {
       
       //Hier werden die Screenshots in das HowToPlay geladen
       
-  $scope.noWrapSlides = false;
+  $scope.noWrapSlides = true;
   $scope.active = 0;
   var slides = $scope.slides = [];
   var currIndex = 0;
 
   $scope.addSlide = function() {
-    var newWidth = 700 + slides.length + 1; //Größe anpassen
     slides.push({
-      image: badge[i], 
+      image: tutorial[i], 
         //hier neues array für die bilder
-      text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 6],
+      text1: ['1. Click on the position where you \nthink the data came from.','3. Press the Reload Button to load a new Box'][slides.length % 6],
+        
+      text2: ['2. Click the Tick Button to confirm your choice',''][slides.length % 6],
         //hier neues array für die Texte
       id: currIndex++
     });
@@ -503,7 +506,7 @@ function score() {
     assignNewIndexesToSlides(indexes);
   };
 
-  for (var i = 1; i < badge.length; i++) {//hier neues array
+  for (var i = 0; i < tutorial.length; i++) {//hier neues array
     $scope.addSlide();
   }
 
