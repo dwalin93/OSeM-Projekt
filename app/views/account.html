@@ -215,11 +215,6 @@
                                 <img height="90" width="90" src='images/score-10000.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.user.points > 1000)">
-                            <td> 
-                                <img height="90" width="90"  src='images/score-1000.png' alt="Badge for {{ vm.user.firstname }}">
-                            </td>
-                        </tr>
                         <tr ng-show="(vm.user.points > 5000)">
                             <td> 
                                 <img height="90" width="90"  src='images/score-5000.png' alt="Badge for {{ vm.user.firstname }}">
@@ -228,6 +223,11 @@
                         <tr ng-show="(vm.user.points > 2500)">
                             <td> 
                                 <img height="90" width="90"  src='images/score-2500.png' alt="Badge for {{ vm.user.firstname }}">
+                            </td>
+                        </tr>
+                        <tr ng-show="(vm.user.points > 1000)">
+                            <td> 
+                                <img height="90" width="90"  src='images/score-1000.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
                         <tr ng-show="(vm.user.points > 500)">

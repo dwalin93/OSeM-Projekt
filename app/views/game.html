@@ -12,7 +12,7 @@
       <br>
         <table ng-show="vm.button_repeat" width="300">
         <tr>
-            <td><img hspace="20" high="40" width="21" src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png"></td>
+            <td><img hspace="20" high="41" width="25" src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png"></td>
             <td><p id="Auswahl" style="color:blue"></p></td> 
             </tr>
         <tr>
@@ -28,12 +28,16 @@
       <!-- Trigger the modal with a button   data-target="#myModal2"  -->
 
       <div class="row" >
-          <div class="col-md-4">
+          <div class="col-md-4"> <br>
               <div class="row" ng-show="vm.test" style="height:70px">
               <uib-alert type="warning" >{{'PLEASE_WAIT_DATA'|translate}} <img id="mySpinner" src="/images/ajax-loader.gif" /></uib-alert>
+                <div uib-alert ng-show="vm.test2" class="alert-danger">Danger Alert</div>
+        
               </div>
               <div class="row" ng-hide="vm.test" style="height:70px;">
               </div>
+              
+              
           <!--
           <!-- Panels with data -->
 

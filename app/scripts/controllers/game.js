@@ -221,7 +221,7 @@ function score() {
 
 
       function onMapClick(e) {
-        if (marker == null && vm.button_repeat==false) {
+        if (marker == null && vm.button_repeat==false && vm.test==false) {
             
             
          ok.addTo(mymap);
@@ -233,7 +233,7 @@ function score() {
           position = marker.getLatLng();
           pointB = [position.lat, position.lng];
         } else {
-            if(vm.button_repeat==false){
+            if(vm.button_repeat==false && vm.test==false){
          ok.addTo(mymap);
           mymap.removeLayer(marker);
           marker = null;
@@ -243,17 +243,14 @@ function score() {
           position = marker.getLatLng();
           pointB = [position.lat, position.lng];
           mymap.addLayer(marker);
-            }
-        }
-      };
+            };
+            
       mymap.on('click', onMapClick);
 
       $scope.distance = boxDistance;
       //console.log("heiiiide " + boxDistance);
       //boxDistance ist undefined
-
-      
-      
+        }}
       
 
       //TO-DO
