@@ -31,10 +31,9 @@
     var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
       
       
-      var p = 0;
-
-          meanData.getProfile()
-              .success(function (data) {
+        var p = 0;
+        meanData.getProfile()
+            .success(function (data) {
               vm.user = data;
               vm.user.points=vm.user.points;
             while(vm.user.points > point_badge[p]){
@@ -54,7 +53,6 @@
                   .error(function (e) {
                   console.log(e);
               });
-
       };
 
       alleProfile();
@@ -71,9 +69,10 @@
 
 
     var firstpolyline;
-      var ok;
-      var repeat;
-      var button_repeat=false;
+    var ok;
+    var repeat;
+    var button_repeat;
+     vm.button_repeat=false;
     var popupergebnis;
     var latbox;
     var punkte = 0;
@@ -82,7 +81,6 @@
     var maxPunkte = 0;
     var minPunkte = 0;
     var intervallPunkte = 0;
-    vm.pkt = 0;
     var punkteGesamt = 0;
     var longbox;
     var marker = null;
@@ -223,7 +221,7 @@ function score() {
 
 
       function onMapClick(e) {
-        if (marker == null && button_repeat==false) {
+        if (marker == null && vm.button_repeat==false) {
             
             
          ok.addTo(mymap);
@@ -235,7 +233,7 @@ function score() {
           position = marker.getLatLng();
           pointB = [position.lat, position.lng];
         } else {
-            if(button_repeat==false){
+            if(vm.button_repeat==false){
          ok.addTo(mymap);
           mymap.removeLayer(marker);
           marker = null;
@@ -266,7 +264,7 @@ function score() {
           }).addTo(mymap);
           ok.remove();
           repeat.addTo(mymap);
-            button_repeat=true;
+            vm.button_repeat=true;
           counter++;
           score();
           var pointA = [latbox, longbox];
@@ -280,7 +278,6 @@ function score() {
           firstpolyline.addTo(mymap);
           savePoints(punkte);
           mymap.fitBounds(firstpolyline.getBounds());
-            console.log(firstpolyline.getBounds())
 
         var poplatlon = [(pointA[0]+pointB[0])/2,(pointA[1]+pointB[1])/2]
             popupergebnis = L.popup()
@@ -350,7 +347,7 @@ function score() {
         mymap.removeLayer(ergebnis);
         mymap.removeLayer(firstpolyline);
         repeat.remove();
-        button_repeat = false;
+        vm.button_repeat = false;
         ok.remove();
         ergebnis= null;
         randomize(boxId, $http)
@@ -401,9 +398,7 @@ function score() {
             var sensors1 = [];
             var sensors2 = [];
 
-
               //console.log(sensors)
-
               var d = 3;
               var p = 0;
 
@@ -433,7 +428,6 @@ function score() {
                   sensors2=sensors1;
               }
 
-
               for (var i = 0; i < sensors2.length; i++) {
               var sensor = {};
               sensor.title = sensors2[i].title;
@@ -461,9 +455,7 @@ function score() {
           }
 
           function onMapClick(e, latbox, longbox) {
-
           }
-
         }, function myError(response) {
           //console.log(response);
         });
@@ -472,9 +464,8 @@ function score() {
 
 
 
-
+//In dieser Funktion werden die Punkte Gespeichert und eine Meldung ausgegeben, wenn ein neues Point-Badge erreicht ist.
       function savePoints(points){
-
           meanData.countPoints(points)
           .success(function () {
             if(punkteGesamt >= (point_badge[p] - vm.user.points)){
@@ -492,7 +483,7 @@ function score() {
       
       
       
-      
+      //Hier werden die Screenshots in das HowToPlay geladen
       
   $scope.noWrapSlides = false;
   $scope.active = 0;
@@ -534,35 +525,8 @@ function score() {
     }
     return shuffle(indexes);
   }
-
-
-      
-      
-      
-      
-      var legend = L.control({position: 'bottomleft'});
-      
-      legend.onAdd = function (map) {
-
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = ["Auswahl", "Ziel"],
-        labels = ['https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png','https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png'];
-
-    // loop through our density intervals and generate a label with a colored square for each interval
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            grades[i] + (" <img src="+ labels[i] +" height='41' width='25'>") +'<br>';
-    }
-
-    return div;
-};
-      
-      legend.addTo(mymap);
- 
-      
-      
   };
-
-
-
+    
+    
+    
 })();
