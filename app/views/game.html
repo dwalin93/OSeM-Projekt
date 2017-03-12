@@ -3,26 +3,40 @@
       <h2>Finde den passenden Ort zu den Daten
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
           <span class="glyphicon glyphicon-question-sign"></span> How to play</button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="myBtn">
             <span class="glyphicon glyphicon-king"></span> Top 10</button>
            <a role="button" class="btn btn-success" href="/leaderboard"><span class="glyphicon glyphicon-list"></span> Leaderboard</a>
           </h2>
 
       <div id="mapid" style="height: 550px">{{map}}</div>
       <br>
-      <br>
+        <table ng-show="vm.button_repeat" width="300">
+        <tr>
+            <td><img hspace="20" high="41" width="25" src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png"></td>
+            <td><p id="Auswahl" style="color:blue"></p></td> 
+            </tr>
+        <tr>
+            <td><img hspace="20" high="40" width="21" src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png"></td>
+            <td><p id="Ziel" style="color:green"></p></td>
+            </tr>
+        
+        </table>
+        <br>
       </div>
 
       <!-- Example row of columns -->
       <!-- Trigger the modal with a button   data-target="#myModal2"  -->
 
       <div class="row" >
-          <div class="col-md-4">
+          <div class="col-md-4"> <br>
               <div class="row" ng-show="vm.test" style="height:70px">
-              <uib-alert type="warning" >{{'PLEASE_WAIT_DATA'|translate}} <img id="mySpinner" src="/images/ajax-loader.gif" /></uib-alert>
+                <uib-alert type="warning" >{{'PLEASE_WAIT_DATA'|translate}} <img id="mySpinner" src="/images/ajax-loader.gif" />
+                  </uib-alert>
               </div>
               <div class="row" ng-hide="vm.test" style="height:70px;">
               </div>
+              
+              
           <!--
           <!-- Panels with data -->
 
@@ -51,21 +65,32 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">How to Play</h4>
-                </div>
+            </div>
             <div class="modal-body">
-                <p>1. Click on the position where you think the data came from<br>
-                2. Click the Tick Button to confirm your choice<br>
-                3. Press the Reload Button to load a new Box<br>
-                4. To see the leaderboard, just cklick the link below the map<br>
-                5. If you don't want to play anymore just leave the site. Your points will be saved automatically
-                </p>
+                <div >
+                    <div style="height: 320px">
+                        <div uib-carousel active="active" no-wrap="noWrapSlides">
+                            <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+                                <img ng-src="{{slide.image}}" style="margin:auto;" height="600" width="600" >
+                                <p>{{slide.text1}}</p>
+                                <p>{{slide.text2}}</p>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <br>
+                <p>4. To see the leaderboard, just cklick the link above the map,<br>
+                5. If you don't want to play anymore just leave the site. Your points will be saved.
+                </p>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 <div id="myModal3" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -104,7 +129,7 @@
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr ng-repeat="user in vm.users | orderBy : '-points' | limitTo: 10" ng-style="vm.user.username ===     user.username ? {'background-color': 'lightgreen'} : {}">
+                        <tr ng-repeat="user in vm.users | limitTo: 10" ng-style="vm.user.username ===     user.username ? {'background-color': 'lightgreen'} : {}">
                             <td>{{$index +1}}</td>
                             <td>{{user.username}}</td>
                             <td>{{user.points}}</td>

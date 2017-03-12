@@ -29,16 +29,17 @@
     vm.user = {};
     var point_badge=[100, 200, 500, 1000, 2500, 5000, 10000, 15000 , 20000, 50000];
     var badge = ["images/score-100.png","images/score-200.png","images/score-500.png","images/score-1000.png","images/score-2500.png","images/score-5000.png","images/score-10000.png","images/score-15000.png","images/score-20000.png","images/score-50000.png"];
+    var tutorial = ["images/tutorial-1.png","images/tutorial-2.png"];
       
       
-      var i = 0;
-
-          meanData.getProfile()
-              .success(function (data) {
+      
+        var p = 0;
+        meanData.getProfile()
+            .success(function (data) {
               vm.user = data;
               vm.user.points=vm.user.points;
-            while(vm.user.points > point_badge[i]){
-                i++;
+            while(vm.user.points > point_badge[p]){
+                p++;
                 //console.log(i);
             };
           })
@@ -54,8 +55,7 @@
                   .error(function (e) {
                   console.log(e);
               });
-
-      }
+      };
 
       alleProfile();
 
@@ -71,8 +71,10 @@
 
 
     var firstpolyline;
-      var ok;
-      var repeat;
+    var ok;
+    var repeat;
+    var button_repeat;
+     vm.button_repeat=false;
     var popupergebnis;
     var latbox;
     var punkte = 0;
@@ -81,7 +83,6 @@
     var maxPunkte = 0;
     var minPunkte = 0;
     var intervallPunkte = 0;
-    vm.pkt = 0;
     var punkteGesamt = 0;
     var longbox;
     var marker = null;
@@ -222,9 +223,11 @@ function score() {
 
 
       function onMapClick(e) {
-        if (marker == null) {
-
+        if (marker == null && vm.button_repeat==false && vm.test==false) {
+            
+            
          ok.addTo(mymap);
+            
           marker = new L.marker(e.latlng, {
             draggable: false
           });
@@ -232,7 +235,8 @@ function score() {
           position = marker.getLatLng();
           pointB = [position.lat, position.lng];
         } else {
-            ok.addTo(mymap);
+            if(vm.button_repeat==false && vm.test==false){
+         ok.addTo(mymap);
           mymap.removeLayer(marker);
           marker = null;
           marker = new L.marker(e.latlng, {
@@ -241,14 +245,15 @@ function score() {
           position = marker.getLatLng();
           pointB = [position.lat, position.lng];
           mymap.addLayer(marker);
-        }
-      };
+            };
+            
       mymap.on('click', onMapClick);
 
       $scope.distance = boxDistance;
       //console.log("heiiiide " + boxDistance);
       //boxDistance ist undefined
-
+        }}
+      
 
       //TO-DO
      ok = new L.easyButton('glyphicon-ok', function() {
@@ -258,6 +263,7 @@ function score() {
           }).addTo(mymap);
           ok.remove();
           repeat.addTo(mymap);
+            vm.button_repeat=true;
           counter++;
           score();
           var pointA = [latbox, longbox];
@@ -270,15 +276,16 @@ function score() {
           });
           firstpolyline.addTo(mymap);
           savePoints(punkte);
-          mymap.fitBounds(firstpolyline.getBounds());
+          mymap.fitBounds(firstpolyline.getBounds(),{ padding:[10, 10]});
 
         var poplatlon = [(pointA[0]+pointB[0])/2,(pointA[1]+pointB[1])/2]
-        popupergebnis = L.popup()
+            popupergebnis = L.popup()
             .setLatLng(poplatlon)
             .setContent("Du hast jetzt "+ counter +" Runden gespielt. Du hast " + punkte + " Punkt(e) in dieser Runde erzielt, <br> deine Gesamtpunktzahl ist " + punkteGesamt + ". <br>Die Entfernung zur Box beträgt:" + $scope.distance + "km.")
             .addTo(mymap);
 
-
+            SearchPlace(pointList[0], "Ziel");
+            SearchPlace(pointList[1], "Auswahl");
         } /*else {
           mymap.removeLayer(ergebnis);
           mymap.removeLayer(firstpolyline);
@@ -302,6 +309,34 @@ function score() {
         }
 */
       });
+      
+      
+      var SearchPlace= function(coordinates, ziel){
+          $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+coordinates+'&zoom=18&addressdetails=1' , function(data){
+              var Ort =  randerPlace(data, ziel);
+          })};
+         
+      var randerPlace = function (data, ziel){
+                var landkreis = data[0].address.county;
+                var city = data[0].address.city;
+                var bundesland = data[0].address.state;
+                var land = data[0].address.country;
+                if (city !== undefined){
+                    city = city + " in "
+                }else{city=""}
+                if (landkreis == undefined || data[0].address.county == data[0].address.city){
+                    landkreis=""
+                }else{
+                    landkreis = landkreis + " in "}
+                
+                if (bundesland == undefined || data[0].address.state == data[0].address.city ){
+                    bundesland=""
+                }if (land == undefined){
+                    land=""
+                }      
+            document.getElementById(ziel).innerHTML = ( city + landkreis  + bundesland + " ("+ land +")" );
+      };
+                
 
       //TO-DO neue Daten geladen Nachricht  + addieren der Punkte + speichern der Punkte
     repeat = new L.easyButton('fa-repeat', function() {
@@ -311,12 +346,11 @@ function score() {
         mymap.removeLayer(ergebnis);
         mymap.removeLayer(firstpolyline);
         repeat.remove();
+        vm.button_repeat = false;
         ok.remove();
-
         ergebnis= null;
         randomize(boxId, $http)
-
-      });
+    });
 
 
       mymap.on('click', onMapClick);
@@ -350,7 +384,6 @@ function score() {
             response.data.exposure =="indoor"||
             response.data.sensors.length<3
           ) {
-            console.log("box passt nicht")
             randomize(boxId, $http);
           } else {
             vm.test=false;
@@ -364,9 +397,7 @@ function score() {
             var sensors1 = [];
             var sensors2 = [];
 
-
               //console.log(sensors)
-
               var d = 3;
               var p = 0;
 
@@ -396,7 +427,6 @@ function score() {
                   sensors2=sensors1;
               }
 
-
               for (var i = 0; i < sensors2.length; i++) {
               var sensor = {};
               sensor.title = sensors2[i].title;
@@ -424,9 +454,7 @@ function score() {
           }
 
           function onMapClick(e, latbox, longbox) {
-
           }
-
         }, function myError(response) {
           //console.log(response);
         });
@@ -435,15 +463,14 @@ function score() {
 
 
 
-
+//In dieser Funktion werden die Punkte Gespeichert und eine Meldung ausgegeben, wenn ein neues Point-Badge erreicht ist.
       function savePoints(points){
-
           meanData.countPoints(points)
           .success(function () {
-            if(punkteGesamt >= (point_badge[i] - vm.user.points)){
-                document.getElementById("new_badge").src = badge[i];
+            if(punkteGesamt >= (point_badge[p] - vm.user.points)){
+                document.getElementById("new_badge").src = badge[p];
                 document.getElementById("new_points").innerHTML = "Sehr gut, Du hast mehr als " + point_badge[i] + " Punkte erreicht!!!";
-                i=i+1
+                p=p+p
                 $("#myModal3").modal();
             }
             //$location.path('/account');
@@ -455,19 +482,20 @@ function score() {
       
       
       
+      //Hier werden die Screenshots in das HowToPlay geladen
       
-      
-  $scope.noWrapSlides = false;
+  $scope.noWrapSlides = true;
   $scope.active = 0;
   var slides = $scope.slides = [];
   var currIndex = 0;
 
   $scope.addSlide = function() {
-    var newWidth = 700 + slides.length + 1; //Größe anpassen
     slides.push({
-      image: badge[i], 
+      image: tutorial[i], 
         //hier neues array für die bilder
-      text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 6],
+      text1: ['1. Click on the position where you \nthink the data came from.','3. Press the Reload Button to load a new Box'][slides.length % 6],
+        
+      text2: ['2. Click the Tick Button to confirm your choice',''][slides.length % 6],
         //hier neues array für die Texte
       id: currIndex++
     });
@@ -478,7 +506,7 @@ function score() {
     assignNewIndexesToSlides(indexes);
   };
 
-  for (var i = 1; i < badge.length; i++) {//hier neues array
+  for (var i = 0; i < tutorial.length; i++) {//hier neues array
     $scope.addSlide();
   }
 
@@ -497,15 +525,14 @@ function score() {
     }
     return shuffle(indexes);
   }
-
-
+      
       
       
       
       
       
   };
-
-
-
+    
+    
+    
 })();
