@@ -58,7 +58,6 @@
     meanData.getAllProfiles()
       .success(function (data) {
         vm.users = data;
-    vm.rank = meanData.getRank(vm.user,vm.users) 
     })
       .error(function (e) {
         console.log(e);

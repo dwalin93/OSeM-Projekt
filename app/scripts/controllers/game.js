@@ -38,6 +38,7 @@
             .success(function (data) {
               vm.user = data;
               vm.user.points=vm.user.points;
+            console.log(vm.user.points);
             while(vm.user.points > point_badge[p]){
                 p++;
                 //console.log(i);
@@ -203,7 +204,7 @@ function score() {
     oberGrenze = 200;
     unterGrenze = 50;
     maxPunkte = 95;
-    minPunkte = 65;
+    minPunkte = 80;
     intervallPunkte = maxPunkte - minPunkte;
     punkte = Number((minPunkte+(oberGrenze-$scope.distance)/(oberGrenze-unterGrenze)*intervallPunkte).toFixed(0));
     punkteGesamt =  punkteGesamt  + punkte;
@@ -467,10 +468,12 @@ function score() {
       function savePoints(points){
           meanData.countPoints(points)
           .success(function () {
+              console.log(point_badge[p] - vm.user.points)
+              console.log(punkteGesamt)
             if(punkteGesamt >= (point_badge[p] - vm.user.points)){
                 document.getElementById("new_badge").src = badge[p];
-                document.getElementById("new_points").innerHTML = "Sehr gut, Du hast mehr als " + point_badge[i] + " Punkte erreicht!!!";
-                p=p+p
+                document.getElementById("new_points").innerHTML = "Sehr gut, Du hast mehr als " + point_badge[p] + " Punkte erreicht!!!";
+                p=p+1
                 $("#myModal3").modal();
             }
             //$location.path('/account');
