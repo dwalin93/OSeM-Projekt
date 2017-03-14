@@ -80,7 +80,7 @@
                 <table class="table table-user-information" style="text-align: center">
                     <tbody>
                         <tr ng-show="(vm.AnzahlTage <= 7)">
-                            <td>Welcome
+                            <td>Welcome by OpenSenseMap
                                 <br>
                                 <img height="90" width="90" src='images/welcome.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
@@ -92,13 +92,18 @@
                                 <img height="90" width="90" src='images/birthday.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
-                        <tr ng-show="(vm.AnzahlTage <= 30)">
-                            <td>"Junger Nutzer"
+                        <tr ng-show="(vm.AnzahlTage > 30)">
+                            <td>"Power User!"
+                                <br>
+                                <img height="90" width="90" src='images/power_user.png' alt="Badge for {{ vm.user.firstname }}"></td>
+                        </tr>
+                        <tr ng-show="(vm.AnzahlTage < 30)">
+                            <td>"Young User"
                                 <br>
                                 <img height="90" width="90" src='images/New.png' alt="Badge for {{ vm.user.firstname }}"></td>
                         </tr>
                         <tr ng-show="(vm.isLoggedIn)">
-                            <td>JA!! Sei Aktiv! 
+                            <td> Be active for the community! 
                                 <br>
                                 <img height="90" width="90"  src='images/GoUser.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
@@ -279,8 +284,9 @@
                         </div>
                         <div class="modal-body">
                              <h3 class="modal-title">{{'Account Badge' | translate}}</h3>
-                        <img style="margin:20px 20px" height="120" width="120"  src='images/Account_change.png'>
-                        <img style="margin:20px 20px" height="120" width="120"  src='images/Account_Picture.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/sensebox.png'>                        
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/power_user.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/New.png'>
                         <img style="margin:20px 20px" height="120" width="120"  src='images/1_year.png'>
                         <img style="margin:20px 20px" height="120" width="120"  src='images/2_year.png'>
                         <img style="margin:20px 20px" height="120" width="120"  src='images/3_year.png'>
@@ -288,6 +294,9 @@
                         <img style="margin:20px 20px" height="120" width="120"  src='images/250hours.png'>
                         <img style="margin:20px 20px" height="120" width="120"  src='images/500hours.png'>
                         <img style="margin:20px 20px" height="120" width="120"  src='images/1000hours.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/3sensors.png'>                        
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/5sensors.png'>
+                        <img style="margin:20px 20px" height="120" width="120"  src='images/6sensors.png'>
                         </div>
                          <div class="modal-footer">
                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
