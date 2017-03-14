@@ -13,12 +13,17 @@ const restify = require('restify'),
   utils = require('./lib/utils'),
   requestUtils = require('./lib/requestUtils'),
   Box = require('./lib/models').Box,
+ // User = require('./lib/models').Users,
   routes = require('./lib/routes'),
+  umRoutes = require('./lib/umRoutes'),
   path = require('path'),
   favicon = require('serve-favicon'),
+  passport = require('passport'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser');
+require('./lib/passport');
+require('./lib/models/users');
 
 
   
@@ -84,6 +89,7 @@ server.use(restify.fullResponse());
 server.use(restify.queryParser());
 server.use(restify.jsonBodyParser());
 server.pre(restify.pre.sanitizePath());
+server.use(passport.initialize());
 
 
 
@@ -92,7 +98,7 @@ routes(server);
 
 const unknownMethodHandler = function unknownMethodHandler (req, res) {
   if (req.method.toLowerCase() === 'options') {
-    const allowHeaders = ['Accept', 'X-ApiKey', 'Accept-Version', 'Content-Type', 'Api-Version', 'Origin', 'X-Requested-With']; // added Origin & X-Requested-With
+    const allowHeaders = ['Accept', 'X-ApiKey', 'Accept-Version', 'Content-Type', 'Api-Version', 'Origin', 'X-Requested-With', 'Authorization', 'Access-Control-Allow-Headers', 'X-ACCESS_TOKEN' ]; // added Origin & X-Requested-With
 
     if (res.methods.indexOf('OPTIONS') === -1) {
       res.methods.push('OPTIONS');
@@ -102,14 +108,21 @@ const unknownMethodHandler = function unknownMethodHandler (req, res) {
     res.header('Access-Control-Allow-Headers', allowHeaders.join(', '));
     res.header('Access-Control-Allow-Methods', res.methods.join(', '));
     res.header('Access-Control-Allow-Origin', req.headers.origin);
+    //res.header('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,HEAD,OPTIONS');
+
 
     return res.send(204);
   }
 
+
+
   return res.send(new restify.MethodNotAllowedError());
 };
-
+server.use(restify.fullResponse());
 server.on('MethodNotAllowed', unknownMethodHandler);
+
+
+
 
 const stats = fs.statSync('./app.js');
 const mtime = new Date(util.inspect(stats.mtime));
