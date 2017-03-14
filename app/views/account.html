@@ -84,7 +84,7 @@
                 <table class="table table-user-information" style="text-align: center">
                     <tbody>
                         <tr ng-show="(vm.AnzahlTage <= 7)">
-                            <td>Welcome
+                            <td>Welcome by OpenSenseMap
                                 <br>
                                 <img height="90" width="90" src='images/welcome.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
@@ -96,13 +96,18 @@
                                 <img height="90" width="90" src='images/birthday.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
                         </tr>
+                        <tr ng-show="(vm.AnzahlTage > 30)">
+                            <td>"Power User!"
+                                <br>
+                                <img height="90" width="90" src='images/power_user.png' alt="Badge for {{ vm.user.firstname }}"></td>
+                        </tr>
                         <tr ng-show="(vm.AnzahlTage <= 30)">
-                            <td>"Junger Nutzer"
+                            <td>"Young User"
                                 <br>
                                 <img height="90" width="90" src='images/New.png' alt="Badge for {{ vm.user.firstname }}"></td>
                         </tr>
                         <tr ng-show="(vm.isLoggedIn)">
-                            <td>JA!! Sei Aktiv!
+                            <td> Be active for the community! 
                                 <br>
                                 <img height="90" width="90"  src='images/GoUser.png' alt="Badge for {{ vm.user.firstname }}">
                             </td>
