@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('openSenseMapApp')
-  .controller('RegisterCtrl', ['$scope', '$state', '$http', '$q', '$timeout', '$filter', '$location', 'leafletData', 'OpenSenseBoxAPI', 'SensorIcons', '$translate', function($scope, $state, $http, $q, $timeout, $filter, $location, leafletData, OpenSenseBoxAPI, SensorIcons, $translate){
+  .controller('RegisterCtrl', ['$scope', '$state', '$http', '$q', '$timeout', '$filter', '$location', 'leafletData', 'OpenSenseBoxAPI', 'SensorIcons', '$translate','authentication','meanData', function($scope, $state, $http, $q, $timeout, $filter, $location, leafletData, OpenSenseBoxAPI, SensorIcons, $translate, authentication, meanData){
     $scope.osemapi = OpenSenseBoxAPI;
     $scope.icons = SensorIcons;
     $scope.alerts = [];
@@ -199,7 +199,7 @@ angular.module('openSenseMapApp')
     $scope.defaults = {
       minZoom: 2,
       maxZoom: 22,
-      tileLayer: 'OPENSENSEMAP_MAPTILES_URL',
+      tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       tileLayerOptions: {
         subdomains: 'abc',
         attribution: '&copy; <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors | Tiles &copy; <a href="http://www.mapbox.com/" target="_blank">Mapbox</a>',
@@ -408,8 +408,13 @@ angular.module('openSenseMapApp')
         $scope.newSenseBox.model = $scope.modelSelected.id;
       }
 
-      $http.post($scope.osemapi.url+'/boxes', $scope.newSenseBox)
+      $http.post($scope.osemapi.url+'/boxes', $scope.newSenseBox, {
+        headers: {
+          Authorization: 'Bearer ' + authentication.getToken()
+        }
+      })
         .success( function (data) {
+          meanData.countSbPoints(5000);
           $scope.newSenseBox.id = data.boxes[0];
           $scope.rc.sampleWizard.forward();
           $translate('REGISTRATION_SUCCESS').then(function (msg) {

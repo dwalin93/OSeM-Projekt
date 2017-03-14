@@ -104,12 +104,15 @@ angular
     }
   })
 
-    .state('logout',{
-      url:'/',
-      controller: 'logoutCtrl',
-      templateUrl: '/index.html',
-      controllerAs:'vm'
-
+    .state('explore.map.logout',{
+      url:'logout',
+      views: {
+        'sidebar': {
+          controller: 'logoutCtrl',
+          templateUrl: 'views/explore2.sidebar.logout.html',
+          controllerAs: 'vm'
+        }
+      }
     })
 
   .state('profile', {
@@ -118,6 +121,18 @@ angular
     controller: 'profileCtrl',
     controllerAs: 'vm'
   })
+    .state('game', {
+      url: '/game',
+      templateUrl: 'views/game.html',
+      controller: 'gameCtrl',
+      controllerAs: 'vm'
+  })
+    .state('leaderboard', {
+      url: '/leaderboard',
+      templateUrl: 'views/leaderboard.html',
+      controller: 'leaderboardCtrl',
+      controllerAs: 'vm'
+    })
     .state('account', {
       url: '/account',
       templateUrl: 'views/account.html',
@@ -135,6 +150,12 @@ angular
     controller: 'userregisterCtrl',
     controllerAs: 'vm'
   })
+    .state('publicProfile', {
+      url: '/publicProfile',
+      templateUrl: 'views/publicProfile.html',
+      controller: 'publicProfileCtrl',
+      controllerAs: 'vm'
+    })
   .state('info', {
     url: '/info',
     templateUrl: 'views/info.html'

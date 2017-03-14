@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('openSenseMapApp')
-  .controller('EditboxCtrl', ['$scope', 'Validation', '$http', 'OpenSenseBoxAPI', 'SensorIcons', function($scope, Validation, $http, OpenSenseBoxAPI, SensorIcons){
+  .controller('EditboxCtrl', ['$scope', 'Validation', '$http', 'OpenSenseBoxAPI', 'SensorIcons','meanData', function($scope, Validation, $http, OpenSenseBoxAPI, SensorIcons, meanData){
 
   $scope.osemapi = OpenSenseBoxAPI;
   $scope.icons = SensorIcons;
@@ -116,6 +116,13 @@ angular.module('openSenseMapApp')
       }).error(function(){
         $scope.savedError = true;
     });
+    if(newBoxData.sensors !== ""){
+      for(var i =0; i<newBoxData.sensors.length; i++){
+        if(newBoxData.sensors[i].new === true){
+          meanData.countSbPoints(1000);
+        }
+      }
+    }
   };
 
   $scope.flowFileAdded = function(file) {

@@ -1,9 +1,21 @@
 'use strict';
 
 angular.module('openSenseMapApp')
-  .controller('HeaderCtrl', ['$scope', '$rootScope', '$translate', 'OpenSenseBoxAPI', '$http', 'FilterActiveService', 'amMoment', 'tmhDynamicLocale', 'OpenSenseMapData', '$state', 'leafletData', function ($scope, $rootScope, $translate, OpenSenseBoxAPI, $http, FilterActiveService, amMoment, tmhDynamicLocale, OpenSenseMapData, $state, leafletData) {
+  .controller('HeaderCtrl', ['$scope', '$rootScope', '$translate','$http',  'authentication','OpenSenseBoxAPI', 'meanData', 'FilterActiveService', 'amMoment', 'tmhDynamicLocale', 'OpenSenseMapData', '$state', 'leafletData', function ($scope, $rootScope, $translate, $http,authentication, meanData, OpenSenseBoxAPI,  FilterActiveService, amMoment, tmhDynamicLocale, OpenSenseMapData, $state, leafletData) {
+      
   	$scope.osemapi = OpenSenseBoxAPI;
-
+    
+    $scope.isLoggedIn = authentication.isLoggedIn();
+      if($scope.isLoggedIn == false){
+          document.getElementById('profile').style.display='none'
+          document.getElementById('navlogin').style.display='block'
+          }else{  
+              document.getElementById('profile').style.display='block'
+              document.getElementById('navlogin').style.display='none'
+          }
+  
+      
+      
     $scope.changeLang = function (key) {
       $translate.use(key).then(function (key) {
         console.log('Sprache zu '+ key +' gewechselt.');

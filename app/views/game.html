@@ -1,0 +1,149 @@
+<div class="container" style="padding-top: 45px">
+    <div class="col-md-8">
+      <h2>Finde den passenden Ort zu den Daten
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+          <span class="glyphicon glyphicon-question-sign"></span> How to play</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="myBtn">
+            <span class="glyphicon glyphicon-king"></span> Top 10</button>
+           <a role="button" class="btn btn-success" href="/leaderboard"><span class="glyphicon glyphicon-list"></span> Leaderboard</a>
+          </h2>
+
+      <div id="mapid" style="height: 550px">{{map}}</div>
+      <br>
+        <table ng-show="vm.button_repeat" width="300">
+        <tr>
+            <td><img hspace="20" high="41" width="25" src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png"></td>
+            <td><p id="Auswahl" style="color:blue"></p></td> 
+            </tr>
+        <tr>
+            <td><img hspace="20" high="40" width="21" src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png"></td>
+            <td><p id="Ziel" style="color:green"></p></td>
+            </tr>
+        
+        </table>
+        <br>
+      </div>
+
+      <!-- Example row of columns -->
+      <!-- Trigger the modal with a button   data-target="#myModal2"  -->
+
+      <div class="row" >
+          <div class="col-md-4"> <br>
+              <div class="row" ng-show="vm.test" style="height:70px">
+                <uib-alert type="warning" >{{'PLEASE_WAIT_DATA'|translate}} <img id="mySpinner" src="/images/ajax-loader.gif" />
+                  </uib-alert>
+              </div>
+              <div class="row" ng-hide="vm.test" style="height:70px;">
+              </div>
+              
+              
+          <!--
+          <!-- Panels with data -->
+
+              <div class="panel panel-default" ng-repeat="b in box">
+                  <div class="panel-heading">{{b.title}}</div>
+                  <div class="panel-body">{{b.value}} {{b.unit}}
+              <p>gemessen am: {{b.lastMeasurement}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- /container -->
+
+
+
+  <hr>
+  <footer>
+    <p>&copy; 2016 Höltgen-Qiu Inc.</p>
+  </footer>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">How to Play</h4>
+            </div>
+            <div class="modal-body">
+                <div >
+                    <div style="height: 320px">
+                        <div uib-carousel active="active" no-wrap="noWrapSlides">
+                            <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+                                <img ng-src="{{slide.image}}" style="margin:auto;" height="600" width="600" >
+                                <p>{{slide.text1}}</p>
+                                <p>{{slide.text2}}</p>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <p>4. To see the leaderboard, just cklick the link above the map,<br>
+                5. If you don't want to play anymore just leave the site. Your points will be saved.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal3" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">NEUE Auszeichnung!</h4>
+                </div>
+        <div class="modal-body" >
+            <p id="new_points" ></p>
+            <div class="form-group text-center">
+                <img height="200" width="200" id="new_badge" src='images/second.png' alt="Badge for {{ vm.user.firstname }}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="myModal2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3>The Best 10 from the Sensebox Game</h3>
+                </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Username</th>
+                            <th>Punkte</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr ng-repeat="user in vm.users | limitTo: 10" ng-style="vm.user.username ===     user.username ? {'background-color': 'lightgreen'} : {}">
+                            <td>{{$index +1}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.points}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- /container -->
+<!-- Bootstrap core JavaScript

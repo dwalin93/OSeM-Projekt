@@ -2,7 +2,7 @@
 
 angular.module('openSenseMapApp')
 	.controller('SidebarBoxDetailsCtrl',
-		['$scope', '$stateParams', '$http', 'OpenSenseBox', 'OpenSenseBoxesSensors', 'OpenSenseBoxAPI', 'Validation', 'ngDialog', '$timeout', 'OpenSenseBoxData', function($scope, $stateParams, $http, OpenSenseBox, OpenSenseBoxesSensors, OpenSenseBoxAPI, Validation, ngDialog, $timeout, OpenSenseBoxData){
+		['$scope', '$stateParams', '$http', 'OpenSenseBox', 'OpenSenseBoxesSensors', 'OpenSenseBoxAPI', 'Validation', 'ngDialog', '$timeout', 'OpenSenseBoxData', 'userService', '$location', function($scope, $stateParams, $http, OpenSenseBox, OpenSenseBoxesSensors, OpenSenseBoxAPI, Validation, ngDialog, $timeout, OpenSenseBoxData, userService, $location){
 
 		$scope.osemapi = OpenSenseBoxAPI;
 		$scope.true = true;
@@ -33,6 +33,7 @@ angular.module('openSenseMapApp')
 			];
 			$scope.$parent.centerLatLng(markerLatLng);
 			$scope.selectedMarker = response;
+			console.log($scope.selectedMarker);
 			getMeasurements();
 		}, function(){
 			$scope.boxNotFound = true;
@@ -132,4 +133,9 @@ angular.module('openSenseMapApp')
 		$scope.formatDateFull = function(input){
 			return d3.time.format('%Y-%m-%d %H:%M:%S')(new Date(input));
 		};
+
+		$scope.myFunction = function(id){
+		  userService.setID(id);
+		  $location.path('/publicProfile');
+    };
 }]);

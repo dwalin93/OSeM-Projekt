@@ -4,8 +4,8 @@
     .module('openSenseMapApp')
     .service('authentication', authentication);
 
-  authentication.$inject = ['$http', '$window'];
-  function authentication ($http, $window) {
+  authentication.$inject = ['$http', '$window', 'OpenSenseBoxAPI'];
+  function authentication ($http, $window, OpenSenseBoxAPI) {
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
@@ -13,7 +13,7 @@
 
     var deleteToken = function (token) {
       $window.localStorage.removeItem(token);
-    }
+    };
 
     var getToken = function () {
       return $window.localStorage['mean-token'];
@@ -51,19 +51,19 @@
 
     register = function(user) {
       console.log("hallo");
-      return $http.post('/api/register', user).success(function(data){
+      return $http.post(OpenSenseBoxAPI.url+'/register', user).success(function(data){
         saveToken(data.token);
       });
     };
 
     login = function(user) {
-      return $http.post('/api/login', user).success(function(data) {
+      return $http.post(OpenSenseBoxAPI.url+'/login', user).success(function(data) {
         saveToken(data.token);
       });
     };
 
     logout = function(user) {
-      return $http.get('/api/logout', user).success(function(data){
+      return $http.get(OpenSenseBoxAPI.url+'/logout', user).success(function(data){
         deleteToken(data.token);
       })
     };

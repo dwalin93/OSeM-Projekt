@@ -48,3 +48,9 @@ npm-debug.log
 
 #IDE rubbish
 .idea/
+
+#profilbilder
+app/userimages
+
+#.temp erzeugt von Grunt
+.tmp

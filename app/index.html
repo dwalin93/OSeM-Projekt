@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="bower_components/c3/c3.css" />
     <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+    <link rel="stylesheet" href="bower_components/Leaflet.EasyButton/src/easy-button.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -99,19 +100,23 @@
                       <li class="dropdown dropdown-languages" id="profile" >
                             <a href="#" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{'USER' | translate}}<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <!-- languages-start -->
                                 <li ui-sref-active-eq="active" class="menuitem" >
                                 <a ui-sref="account">
                                 <span class="glyphicon glyphicon-book"></span>
                                 {{'PROFIL' | translate}}</a>
                                 </li>
                                 <li ui-sref-active-eq="active" class="menuitem" >
-                                <a ui-sref="/">
+                                <a ui-sref="game">
                                 <span class="glyphicon glyphicon-play"></span>
                                 {{'GAME' | translate}}</a>
                                 </li>
+                                <li ui-sref-active-eq="active" class="menuitem" >
+                                <a ui-sref="leaderboard">
+                                <span class="glyphicon glyphicon-th-list"></span>
+                                {{'Leaderboard' | translate}}</a>
+                                </li>
                                 <li ui-sref-active-eq="active" class="menuitem">
-                                <a ui-sref="logout">
+                                <a ui-sref="explore.map.logout">
                                 <span class="glyphicon glyphicon-off" ></span>
                                 {{'LOGOUT' | translate}}</a>
                                 </li>
@@ -188,6 +193,7 @@
     <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
     <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+    <script src="bower_components/Leaflet.EasyButton/src/easy-button.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -216,6 +222,9 @@
     <script src="scripts/controllers/header.js"></script>
     <script src="scripts/controllers/profile.js"></script>
     <script src="scripts/controllers/account.js"></script>
+    <script src="scripts/controllers/game.js"></script>
+    <script src="scripts/controllers/leaderboard.js"></script>
+    <script src="scripts/controllers/publicProfile.js"></script>
     <script src="scripts/services/opensenseboxapi.js"></script>
     <script src="scripts/services/opensenseboxes.js"></script>
     <script src="scripts/services/opensenseboxessensors.js"></script>

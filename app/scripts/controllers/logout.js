@@ -1,28 +1,19 @@
-/**
- * Created by pglah on 19.12.2016.
- */
-(function () {
+(function() {
   'use strict';
 
-  angular.module('openSenseMapApp')
+  angular
+    .module('openSenseMapApp')
     .controller('logoutCtrl', logoutCtrl);
 
-  logoutCtrl.$inject = ['$location', '$translate', 'authentication'];
-
-  function logoutCtrl($location, authentication) {
+  logoutCtrl.$inject = ['$location', '$translate', 'authentication', 'meanData', 'userService','$window'];
+  function logoutCtrl($location, authentication, meanData, $translate, userService,$window) {
     console.log('tata');
-    var vm = this;
-
-    vm.onSubmit = function () {
-      authentication
-        .logout(vm.credentials)
-        .error(function (err) {
-          alert(err);
-        })
-        .then(function () {
-          $location.path('/logout');
-        });
+   
+ $window.localStorage.clear();
+        document.getElementById('navlogin').style.display='block'
+        document.getElementById('profile').style.display='none'
+      
     };
-  };
-});
+
+})();
 
