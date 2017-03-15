@@ -1,0 +1,25 @@
+<div class="row register"><div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2"><h1>My Account</h1><div class="form-container"><form method="post" ng-submit="vm.onSubmit()"><div class="form-group"><label for="firstname">First name</label><input type="text" id="firstname" class="form-control" ng-model="vm.user.firstname" required></div><div class="form-group"><label for="lastname">Last name</label><input type="text" id="lastname" class="form-control" ng-model="vm.user.lastname" required></div><div class="form-group"><label for="email">E-Mail</label><input type="text" id="email" class="form-control" ng-model="vm.user.email" required></div><div class="form-group"><label for="username">Username</label><input type="text" id="username" class="form-control" ng-model="vm.user.username" required></div><div class="form-group"><label for="password">Password *</label><input type="password" id="password" class="form-control" ng-model="vm.user.password"></div><div class="form-group"><label for="password2">Password REPEAT *</label><input type="password" id="password2" class="form-control" ng-model="vm.user.password2"></div>Optional:<div class="form-group"><label for="birthday">Birthday</label><input type="String" id="birthday" name="birthday" class="form-control" ng-model="vm.user.birthday" placeholder="DD.MM.YYYY"></div><div class="form-group"><label for="info">Info-Text <sub>(150 Zeichen)</sub></label><textarea type="text" id="info" class="form-control" ng-model="vm.user.info" maxlength="150" placeholder="Freitext mit 150 Zeichen">
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" ng-click="vm.saveUser()">Save</button>
+      <button class="btn btn-danger" ng-click="vm.deleteUser()">Delete</button>
+    </div>
+  </form>
+      <h3>{{'EDIT_IMAGE'|translate}}</h3>
+      {{'EDIT_IMAGEINFO'|translate}}
+      <div flow-init="{singleFile:true}" flow-file-added="flowFileAdded($file,$event)" flow-drop>
+        <div class="thumbnail">
+          <img ng-src="/userimages/{{vm.user.image}}" ng-hide="$flow.files.length || !vm.user.image" alt="Image for {{ vm.user.firstname || 'Filter' }}">
+          <img id="flowUploadImage" flow-img="$flow.files[0]">
+        </div>
+        <div>
+          <span class="btn btn-primary" flow-btn>{{ 'SETTINGS_SELECTIMAGE' | translate }}</span>
+          <p>{{ 'SETTINGS_IMAGE_RESTRICTIONS' | translate }}</p>
+          <button type="submit" class="btn btn-success" ng-click="vm.saveImage()">Save</button>
+            <br>
+            <br>
+        </div>
+      </div>
+</div>
+    </div>
+</div>
