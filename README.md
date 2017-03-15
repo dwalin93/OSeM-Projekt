@@ -20,7 +20,7 @@ Um den Master-Branch zu starten, sind folgende Schritte notwendig:
 
 Dann muss zunächst der `npm install` und der `bower install` durchgeführt werden
 
-Anschließend muss man einen data ordner im Projekt anlegen. Dann muss man die Mongodatenbank aus der Konsole mit dem Befehl: `mongod --dbpath `<data ordner>``
+Anschließend muss man einen data ordner im Projekt anlegen. Dann muss man die Mongodatenbank aus der Konsole mit dem Befehl: `mongod --dbpath data-ordner`
 
 Danach muss noch der Nodeserver gestartet werden mit dem Befehl: `node ./bin/www`
 
