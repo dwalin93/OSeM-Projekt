@@ -19,4 +19,22 @@
     </table>
            <button type="button" class="btn btn-info btn-lg" ui-sref="game">Back to Game</button>
     </div>
+  <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2">
+    <h1>Leaderboard for the Sensebox </h1>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Rang</th>
+        <th>Username</th>
+        <th>SenseBox Punkte</th>
+      </tr>
+      </thead>
+      <tfoot>
+      <tr ng-repeat="box in vm.boxes" ng-style="vm.user.username === box.username ? {'background-color': 'lightgreen'} : {}">
+        <td>{{$index +1}}</td>
+        <td ng-click="myFunction(box._id)"><a href="#"> {{box.username}}</a></td>
+        <td>{{box.sbPoints}}</td>
+      </tr>
+      </tfoot>
+    </table>
 </div>

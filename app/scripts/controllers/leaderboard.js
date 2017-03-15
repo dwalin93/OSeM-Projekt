@@ -11,10 +11,20 @@
 
     vm.users = {};
     vm.user = {};
+    vm.boxes = {};
 
     meanData.getAllProfiles()
       .success(function (data) {
         vm.users = data;
+        console.log(vm.users);
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
+    meanData.getAllProfilesBox()
+      .success(function (data) {
+        vm.boxes = data;
         console.log(vm.users);
       })
       .error(function (e) {

@@ -120,6 +120,7 @@ angular.module('openSenseMapApp')
       for(var i =0; i<newBoxData.sensors.length; i++){
         if(newBoxData.sensors[i].new === true){
           meanData.countSbPoints(1000);
+          alert('Für das Hinzufügen eines neuen Sensors erhälst du 1000 Punkte!');
         }
       }
     }

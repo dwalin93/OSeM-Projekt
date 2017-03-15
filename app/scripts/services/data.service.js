@@ -64,6 +64,10 @@
       return $http.get(OpenSenseBoxAPI.url+'/allProfiles');
     };
 
+    var getAllProfilesBox = function () {
+      return $http.get(OpenSenseBoxAPI.url+'/allProfilesBox');
+    };
+
     countPoints = function(points) {
       return $http.get(OpenSenseBoxAPI.url+'/game/'+points, {
         headers: {
@@ -87,7 +91,8 @@
       renderDate: renderDate,
       renderDate2: renderDate2,
       getRank: getRank,
-      countSbPoints: countSbPoints
+      countSbPoints: countSbPoints,
+      getAllProfilesBox : getAllProfilesBox
     };
   }
 

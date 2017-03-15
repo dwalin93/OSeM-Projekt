@@ -415,6 +415,7 @@ angular.module('openSenseMapApp')
       })
         .success( function (data) {
           meanData.countSbPoints(5000);
+          alert('Für das Anlegen der neuen Box erhälst du 5000 Punkte!');
           $scope.newSenseBox.id = data.boxes[0];
           $scope.rc.sampleWizard.forward();
           $translate('REGISTRATION_SUCCESS').then(function (msg) {
