@@ -17,7 +17,7 @@ node_modules
 files/
 !files/template.ino
 
-config/index.js
+
 
 usersketches
 userimages
