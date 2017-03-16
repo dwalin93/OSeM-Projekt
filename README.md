@@ -37,3 +37,5 @@ Um den osemOhneApi Branch zu starten sind folgende Schritte notwendig:
 Zuerst muss der `npm install` und der `bower install` durchgeführt werden
 
 Dann muss in der Konsole `grunt serve` ausgeführt werden
+
+Nur für Linux- Betriebsysteme: Entfernen Sie aus der `.env` Datei die Zeile `COMPOSE_CONVERT_WINDOWS_PATHs=1`
